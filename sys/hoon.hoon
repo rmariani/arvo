@@ -1427,17 +1427,12 @@
         a
       ?~  a
         b
-      ?:  (vor n.a n.b)
-        ?:  =(n.b n.a)
-          [n.b $(a l.a, b l.b) $(a r.a, b r.b)]
-        ?:  (hor n.b n.a)
-          $(a [n.a $(a l.a, b [n.b l.b ~]) r.a], b r.b)
-        $(a [n.a l.a $(a r.a, b [n.b ~ r.b])], b l.b)
-      ?:  =(n.a n.b)
-        [n.b $(b l.b, a l.a) $(b r.b, a r.a)]
-      ?:  (hor n.a n.b)
-        $(b [n.b $(b l.b, a [n.a l.a ~]) r.b], a r.a)
-      $(b [n.b l.b $(b r.b, a [n.a ~ r.a])], a l.a)
+      =>  ?.((vor n.a n.b) . .(a b, b a))
+      ?:  =(n.b n.a)
+        [n.b $(a l.a, b l.b) $(a r.a, b r.b)]
+      ?:  (hor n.b n.a)
+        $(a [n.a $(a l.a, b [n.b l.b ~]) r.a], b r.b)
+      $(a [n.a l.a $(a r.a, b [n.b ~ r.b])], b l.b)
     --
   ::
   ++  wyt                                               ::  size of set
@@ -1589,17 +1584,12 @@
         ~
       ?~  a
         ~
-      ?:  (vor p.n.a p.n.b)
-        ?:  =(p.n.b p.n.a)
-          [n.b $(a l.a, b l.b) $(a r.a, b r.b)]
-        ?:  (gor p.n.b p.n.a)
-          %-  uni(a $(a l.a, b [n.b l.b ~]))  $(b r.b)
-        %-  uni(a $(a r.a, b [n.b ~ r.b]))  $(b l.b)
-      ?:  =(p.n.a p.n.b)
-        [n.b $(b l.b, a l.a) $(b r.b, a r.a)]
-      ?:  (gor p.n.a p.n.b)
-        %-  uni(a $(b l.b, a [n.a l.a ~]))  $(a r.a)
-      %-  uni(a $(b r.b, a [n.a ~ r.a]))  $(a l.a)
+      =>  ?:((vor p.n.a p.n.b) . .(a b, b a))
+      ?:  =(p.n.b p.n.a)
+        [n.b $(a l.a, b l.b) $(a r.a, b r.b)]
+      ?:  (gor p.n.b p.n.a)
+        %-  uni(a $(a l.a, b [n.b l.b ~]))  $(b r.b)
+      %-  uni(a $(a r.a, b [n.b ~ r.b]))  $(b l.b)
     --
   ::
   ++  jab
@@ -1692,44 +1682,33 @@
         a
       ?~  a
         b
-      ?:  (vor p.n.a p.n.b)
-        ?:  =(p.n.b p.n.a)
-          [n.b $(a l.a, b l.b) $(a r.a, b r.b)]
-        ?:  (gor p.n.b p.n.a)
-          $(a [n.a $(a l.a, b [n.b l.b ~]) r.a], b r.b)
-        $(a [n.a l.a $(a r.a, b [n.b ~ r.b])], b l.b)
-      ?:  =(p.n.a p.n.b)
-        [n.b $(b l.b, a l.a) $(b r.b, a r.a)]
-      ?:  (gor p.n.a p.n.b)
-        $(b [n.b $(b l.b, a [n.a l.a ~]) r.b], a r.a)
-      $(b [n.b l.b $(b r.b, a [n.a ~ r.a])], a l.a)
+      =>  ?:((vor p.n.a p.n.b) . .(a b, b a))
+      ?:  =(p.n.b p.n.a)
+        [n.b $(a l.a, b l.b) $(a r.a, b r.b)]
+      ?:  (gor p.n.b p.n.a)
+        $(a [n.a $(a l.a, b [n.b l.b ~]) r.a], b r.b)
+      $(a [n.a l.a $(a r.a, b [n.b ~ r.b])], b l.b)
     --
   ::
   ++  uno                                               ::  general union
     =+  b=a
     |@
     ++  $
-      |*  meg/$-({* * *} *)
+      |=  meg/$-({_p:node _q:node _q:node} _q:node)
       |-  ^+  a
       ?~  b
         a
       ?~  a
         b
-      ?:  (vor p.n.a p.n.b)
-        ?:  =(p.n.b p.n.a)
-          [n.b $(a l.a, b l.b) $(a r.a, b r.b)]
-        ?:  (gor p.n.b p.n.a)
-          $(a [n.a $(a l.a, b [n.b l.b ~]) r.a], b r.b)
-        $(a [n.a l.a $(a r.a, b [n.b ~ r.b])], b l.b)
+      =>  ?:((vor p.n.a p.n.b) . .(a b, b a))
       ?:  =(p.n.a p.n.b)
         :+  [p.n.a (meg p.n.a q.n.a q.n.b)]
           $(b l.b, a l.a)
         $(b r.b, a r.a)
       ?:  (gor p.n.a p.n.b)
-        $(b [n.b $(b l.b, a [n.a l.a ~]) r.b], a r.a)
-      $(b [n.b l.b $(b r.b, a [n.a ~ r.a])], a l.a)
+        $(a [n.a $(a l.a, b [n.b l.b ~]) r.a], b r.b)
+      $(a [n.a l.a $(a r.a, b [n.b ~ r.b])], b l.b)
     --
-  ::
   ::
   ++  urn                                               ::  apply gate to nodes
     |*  b/$-({* *} *)
