@@ -12,7 +12,7 @@
   ++  html  (crip (en-xml hymn))                        ::  convert to %html
   ++  mime  [/text/html (as-octs html)]                 ::  convert to %mime
   --
-++  garb  /snip                                         ::  grabbed by
+++  garb  /snip/body                                    ::  grabbed by
 ++  grab  |%                                            ::  convert from
           ++  noun  manx                                ::  clam from %noun
 --        --

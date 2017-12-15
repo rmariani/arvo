@@ -19,13 +19,6 @@
 /=    extras    /:  /===/ren/tree/head/extras           :: additional scripts
                 /^  (map knot cord)    /_  /js/
 ::
-|%
-++  cdnjs
-  |=(a/tape "//cdnjs.cloudflare.com/ajax/libs/{a}{?:(nomin.dbg "" ".min")}.js")
-++  maxcdn
-  |=(a/tape "//maxcdn.bootstrapcdn.com/{a}{?:(nomin.dbg "" ".min")}.js")
---
-::
 ::::
   ::
 ^-  marl
@@ -41,26 +34,9 @@
           ;link(type "text/css", rel "stylesheet", href "/===/web/lib/css/codemirror.css");
           ;link(type "text/css", rel "stylesheet", href "/===/web/tree/main.css");
         ==
-    ;script(type "text/javascript", src "{(cdnjs "jquery/2.1.3/jquery")}");
-    ;script(type "text/javascript", src "{(maxcdn "bootstrap/3.3.6/js/bootstrap")}");
-    ;script(type "text/javascript", src "{(cdnjs "lodash.js/2.4.1/lodash")}");
-    ;script(type "text/javascript", src "{(cdnjs "react/0.14.6/react")}");
-    ;script(type "text/javascript", src "{(cdnjs "react/0.14.6/react-dom")}");
-    ;script(type "text/javascript", src "{(cdnjs "flux/2.1.1/Flux")}");
-    ;*  (turn ~(tap by extras) |=({@ a/@t} ;script(type "text/javascript"):"{(trip a)}"))
-    ;script(type "text/javascript", src "//cdnjs.cloudflare.com/ajax/libs/codemirror/4.3.0/codemirror.js");
-::    ;script(type "text/javascript", src "//cdnjs.cloudflare.com/ajax/libs/".
-::      "codemirror/4.3.0/mode/markdown/markdown.min.js");
-    ;*  ?.  nopack.dbg
-          :_  ~
-          ;script(type "text/javascript", src "{?.(aut "" "/~~/~/at")}".
-                                            "/===/web/pack/js/tree-urb.js");
-::                                             "/===/web/pack/js/tree-hoon-urb.js");
-        ;=
-::           ;script(type "text/javascript", src "/===/web/lib/js/hoon.js");
-          ;script(type "text/javascript", src "/===/web/tree/main.js");
-          ;script(type "text/javascript", src "{?.(aut "" "/~~/~/at")}".
-                                              "/===/web/lib/js/urb.js");
-        ==
+    ::;link(type "text/css", rel "stylesheet", href "http://localhost:8000/docs/pub/tree/main.css");
     ;link(type "application/rss+xml", rel "alternate", href "{(spud tub)}.rss-xml");
+    ;script(type "text/javascript", src "{?.(aut "" "/~~/~/at")}".
+                                        "/===/web/lib/js/urb.js");
+ 
 ==
