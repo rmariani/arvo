@@ -1,6 +1,6 @@
 ::  File writer module
 ::
-::::  /hoon/write/hood/lib
+::::  /hoon/write/lib
   ::
 /?    310
 /-    plan-diff, plan-acct
@@ -94,23 +94,26 @@
 ::
 ++  poke-fora-post
   |=  {sup/path him/ship hed/@t txt/@t}  ^+  abet
+  ~&  %writing-fora-post
   =+  pax=(welp (flop sup) /posts/(cat 3 (scot %da now) '~'))
   =.  txt
     %-  crip
     """
-    ---
-    type: post
-    date: {<now>}
-    title: {(trip hed)}
-    author: {<him>}
-    navsort: bump
-    navuptwo: true
-    comments: reverse
-    ---
+    /=  thread  /%  /tree-kids/
+    :-  :~
+    date+'{<now>}'
+    title+'{(trip hed)}'
+    author+'{<him>}'
+    ==
+    ;>
+    # {(trip hed)}
 
     {(trip txt)}
+
+    ;+  (thread %author show+%full %date sort+%date ~)
+
     """
-  (poke--data [`%md pax] %mime / (as-octs txt))
+  (poke--data [`%hoon pax] %mime / (as-octs txt))
 ::
 ++  ames-secret
   ^-  @t
