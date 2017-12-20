@@ -4,8 +4,11 @@
 /?  310
 /-  tree-include
 /=  gas  /$  fuel:html
-/=  meta  /^  (map @ta (map knot cord))
-          /_  /%  /&front&/|(/front/ /~[~])
+/=  kid-meta  /:  /%%/
+              /^  (map @ta (map knot cord))
+              /_  /%  /tree-front/
+/=  our-meta   /^  (map knot cord)
+               /%  /tree-front/
 ::
 |=  $=  opts  %-  list
   $?  [%sort ?(%date %default)]
@@ -33,7 +36,7 @@
   ?.  (~(has by named-opt) %sort)
     %default
   (~(got by named-opt) %sort)
-=/  sorted  %+  sort  ~(tap by meta)
+=/  sorted  %+  sort  ~(tap by kid-meta)
   |=  $:  [@ta a=(map knot cord)]
           [@ta b=(map knot cord)]
       ==
@@ -58,22 +61,41 @@
 ::
 =?  sorted  (has-opt %reverse)
   (flop sorted)
-=/  up-link  (spud (slag 1 (flop s.bem.gas)))
+=/  up-link  
+ ?:  (~(has by our-meta) %parent)
+   (~(got by our-meta) %parent)
+ (spat (slag 1 (flop (slag 1 s.bem.gas))))
+?>  ?=(@t up-link)
+=/  up-link  (trip up-link)
+=/  home-link  ?:  (~(has by kid-meta) %navhome)
+                 (~(got by kid-meta) %navhome)
+               '/'
+?>  ?=(@t home-link)
+=/  our-idx  +:(find [[-:(scag 1 s.bem.gas) our-meta] ~] sorted)
+::
+=/  prev-idx
+  ?:(=(our-idx 0) (dec (lent sorted)) (dec our-idx))
+=/  prev-item  -:(snag prev-idx sorted)
+=/  prev-link  (weld up-link "/{(trip prev-item)}")
+::
+=/  next-idx
+  ?:(=(our-idx (dec (lent sorted))) 0 +(our-idx))
+=/  next-item  -:(snag next-idx sorted)
+=/  next-link  (weld up-link "/{(trip next-item)}")
 ::
 ^-  manx
 ;div(class "links")
   ;div(class "icon")
-    ;div(class "home");
-    ;div(class "app");
+    ;a(class "home", href (trip home-link));
     ;div(class "dpad")
       ;a(class "up", href up-link);
       ;div
-        ;a(class "prev");
-        ;a(class "next");
+        ;a(class "prev", href prev-link);
+        ;a(class "next", href next-link);
       ==
     ==
   ==
-  ;div(class (weld "items" " {(trip class-val)}"), id id-val)
+  ;div(class (weld "items" " {(trip class-val)}"), id (trip id-val))
     ;ul(class "nav")
     ;*  %+  turn  sorted
     |=  [name=@ta dat=(map knot cord)]

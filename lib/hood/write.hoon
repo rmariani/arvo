@@ -86,31 +86,48 @@
   |=  {sup/path him/ship txt/@t}  ^+  abet
   =+  pax=(welp (flop sup) /comments/(scot %da now))
   =.  txt
-    %+  rap  3  :~
-      '## `'  (scot %p him)  '`'
-      '\0a'  txt
-    ==
-  (poke--data [`%md pax] %mime / (as-octs txt))
+    %-  crip
+      """
+      :-  :~
+      author+'{<him>}'
+      date+'{<now>}'
+      ==
+      ;>
+      # {<him>}
+
+      {(trip txt)}
+
+      """
+  (poke--data [`%umd pax] %mime / (as-octs txt))
 ::
 ++  poke-fora-post
   |=  {sup/path him/ship hed/@t txt/@t}  ^+  abet
-  ~&  %writing-fora-post
   =+  pax=(welp (flop sup) /posts/(cat 3 (scot %da now) '~'))
+  =+  spur=(spud (flop pax))
   =.  txt
     %-  crip
     """
-    /=  thread  /%  /tree-kids/
+    /=  thread  /:  /%/comments  /%  /tree-kids/
     :-  :~
     date+'{<now>}'
     title+'{(trip hed)}'
     author+'{<him>}'
+    nav+'true'
+    parent+'{<`path`(slag 1 (flop sup))>}'
     ==
     ;>
     # {(trip hed)}
 
     {(trip txt)}
 
-    ;+  (thread %author show+%full %date sort+%date ~)
+    ;+  (thread show+%full-no-link %author %date sort+%date ~)
+
+    ;script(type "text/javascript", src "/===/web/fora/form-submit.js");
+    ;form
+      ;textarea(type "text", name "comment");
+      ;br;
+      ;input(type "button", value "Post", onclick "addComment('{spur}');");
+    ==
 
     """
   (poke--data [`%hoon pax] %mime / (as-octs txt))

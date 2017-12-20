@@ -3,13 +3,12 @@
 ;>
 # Add
 
-;script(type "text/javascript", src "form-submit.js");
-;form ::(method "post", action "/~/to/talk/talk-fora-post")
+;script(type "text/javascript", src "/===/web/fora/form-submit.js");
+;form
   ;input(type "text", name "title");
   ;br;
   ;textarea(type "text", name "comment");
   ;br;
-::  ;input(type "button", value "Post", onclick "addPost(\"/fora/web\");");
   ;input(type "button", value "Post", onclick "addPost({<spur>});");
 ==
 

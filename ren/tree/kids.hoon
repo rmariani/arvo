@@ -11,9 +11,8 @@
   $?  %date
       %author
       %title
-      %filename
       [%layout ?(%list %grid)]
-      [%show ?(%preview %full)]
+      [%show ?(%preview %full %full-no-link)]
       [%count @u]
       [%sort ?(%date %default)]
       %reverse
@@ -81,7 +80,6 @@
 ::
 ^-  manx
 ;div(class (trip class-val), id (trip id-val))
-::;div: {<kids>}
 ;*  %+  turn  (scag count sorted)
 |=  [name=@ta inc=tree-include]
 =/  has-meta  ~(has by meta.inc)
@@ -94,32 +92,24 @@
     ;=  ;div.date: {(trip (got-meta %date))}
     ==
   ~
-  ;h1.title
-    ;*  ?:  (has-opt %filename)
-          ;=  ;a(href link-to): {(trip name)}
-          ==
-        ?:  (has-opt %title)
-          ?:  (has-meta %title)
-            ;=  ;a(href link-to): {(trip (got-meta %title))}
-            ==
-          ?~  head.inc
-            ;=  ;a(href link-to): {(trip name)}
-            ==
-          ;=  ;a(href link-to): *{head.inc}
-          ==
-        ~
-  ==
+  ;*  ?:  (has-opt %title)
+        ;=  ;h1.title
+        ;+  ?:  (has-meta %title)
+              ;a(href link-to): {(trip (got-meta %title))}
+            ?~  head.inc
+              ;a(href link-to): {(trip name)}
+            ;a(href link-to): *{head.inc}
+        ==
+        ==
+      ~
   ;*  ?:  (~(has by named-opt) %show)
         =+  x=(~(got by named-opt) %show)
         ?:  =(x %preview)
           snip.inc
         ?:  =(x %full)
-          ?:  |((has-opt %title) (has-opt %filename))
-            body.inc
-          ;=  ;h1.title
-                ;a(href link-to): *{head.inc}
-              ==
-              ;*  body.inc
+          body.inc
+        ?:  =(x %full-no-link)
+          ;=  +{full.inc}
           ==
         ~
       ~
