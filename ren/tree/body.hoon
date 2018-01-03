@@ -2,7 +2,7 @@
 ::::  /hoon/body/tree/ren
   ::
 /?    310
-/=  meta  /%  /tree-front/
+/=  meta  /^  (map knot cord)  /%  /tree-front/
 /=  body  /%  /tree-elem/
 /=  nav   /%  /tree-nav/
 ^-  marl

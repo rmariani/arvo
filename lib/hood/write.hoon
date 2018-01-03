@@ -93,8 +93,6 @@
       date+'{<now>}'
       ==
       ;>
-      # {<him>}
-
       {(trip txt)}
 
       """
@@ -113,7 +111,9 @@
     title+'{(trip hed)}'
     author+'{<him>}'
     nav+'true'
-    parent+'{<`path`(slag 1 (flop sup))>}'
+    parent+'../../'
+    siblings+'../'
+    navhome+'../../'
     ==
     ;>
     # {(trip hed)}

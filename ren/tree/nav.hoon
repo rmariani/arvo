@@ -61,12 +61,20 @@
 ::
 =?  sorted  (has-opt %reverse)
   (flop sorted)
-=/  up-link  
+=/  up-link
  ?:  (~(has by our-meta) %parent)
    (~(got by our-meta) %parent)
- (spat (slag 1 (flop (slag 1 s.bem.gas))))
+ '../'
 ?>  ?=(@t up-link)
 =/  up-link  (trip up-link)
+::
+=/  sibs-link
+ ?:  (~(has by our-meta) %siblings)
+   (~(got by our-meta) %siblings)
+ '../'
+?>  ?=(@t sibs-link)
+=/  sibs-link  (trip sibs-link)
+::
 =/  home-link  ?:  (~(has by kid-meta) %navhome)
                  (~(got by kid-meta) %navhome)
                '/'
@@ -76,12 +84,12 @@
 =/  prev-idx
   ?:(=(our-idx 0) (dec (lent sorted)) (dec our-idx))
 =/  prev-item  -:(snag prev-idx sorted)
-=/  prev-link  (weld up-link "/{(trip prev-item)}")
+=/  prev-link  "{sibs-link}{(trip prev-item)}/"
 ::
 =/  next-idx
   ?:(=(our-idx (dec (lent sorted))) 0 +(our-idx))
 =/  next-item  -:(snag next-idx sorted)
-=/  next-link  (weld up-link "/{(trip next-item)}")
+=/  next-link  "{sibs-link}{(trip next-item)}/"
 ::
 ^-  manx
 ;div(class "links")
@@ -101,7 +109,7 @@
     |=  [name=@ta dat=(map knot cord)]
     =/  has-meta  ~(has by dat)
     =/  got-meta  ~(got by dat)
-    =/  link-to  (weld up-link "/{(trip name)}")
+    =/  link-to  "{sibs-link}{(trip name)}/"
     ;li(class "nav-item")
       ;+  ?:  (has-meta %title)
             ;a(class "nav-link", href link-to)

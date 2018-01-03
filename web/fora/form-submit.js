@@ -15,9 +15,13 @@ function addPost(spur){
   };
 
   window.urb.send(data, params, function(error, result){
-    console.log(error);
-    console.log(result);
+    if (error == null){
+      window.location.href = "../../fora.last-post?by=~zod"
+    }
+//    console.log(error);
+//    console.log(result);
   });
+
 }
 
 
@@ -36,24 +40,9 @@ function addComment(spur){
   };
 
   window.urb.send(data, params, function(error, result){
-    console.log(error);
-    console.log(result);
+//    console.log(error);
+//    console.log(result);
   });
 }
-/*
-window.urb.bind("/redirect",
-  { appl: "fora",
-    mark: "json" },
-  function(error, result){
-    console.log(error);
-    console.log(result);
-});
-*/
-
-
-
-
-
-
 
 

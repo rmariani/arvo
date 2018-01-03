@@ -12,4 +12,4 @@
   ;input(type "button", value "Post", onclick "addPost({<spur>});");
 ==
 
-## [Back](../fora)
+## [Back](../)

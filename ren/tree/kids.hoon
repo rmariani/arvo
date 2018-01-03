@@ -14,10 +14,11 @@
       [%layout ?(%list %grid)]
       [%show ?(%preview %full %full-no-link)]
       [%count @u]
-      [%sort ?(%date %default)]
+      [%sort ?(%date %default %bump)]
       %reverse
       [%class @t]
       [%id @t]
+      [%datapath @t]
   ==
 =/  has-opt   ~(has in (sy opts))
 =/  named-opt  %-  malt
@@ -78,15 +79,22 @@
   (lent sorted)
 ?>  ?=(@ count)
 ::
+=/  link-to
+  ?:  (~(has by named-opt) %datapath)
+    (~(got by named-opt) %datapath)
+  './'
+?>  ?=(@t link-to)
+::
 ^-  manx
 ;div(class (trip class-val), id (trip id-val))
 ;*  %+  turn  (scag count sorted)
 |=  [name=@ta inc=tree-include]
 =/  has-meta  ~(has by meta.inc)
 =/  got-meta  ~(got by meta.inc)
-=/  link-to  %+  weld  
-  (spud (slag 1 (flop s.bem.gas)))
-  "/{(trip name)}"
+::=/  link-to  %+  weld  
+::  (spud (slag 1 (flop s.bem.gas)))
+::  "/{(trip name)}"
+=/  link-to  "{(trip link-to)}{(trip name)}/"
 ;div(class layout-element)
   ;*  ?:  &((has-opt %date) (has-meta %date))
     ;=  ;div.date: {(trip (got-meta %date))}
