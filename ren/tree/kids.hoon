@@ -6,18 +6,21 @@
 /=  gas  /$  fuel:html
 /=  kids  /^  (map @ta tree-include)
           /_  /%  /tree-combine/
+/=  bump  /^  (map @ta @da)
+          /_  /%  /tree-bump/
 ::
 |=  $=  opts  %-  list
   $?  %date
       %author
       %title
-      [%layout ?(%list %grid)]
       [%show ?(%preview %full %full-no-link)]
       [%count @u]
       [%sort ?(%date %default %bump)]
       %reverse
       [%class @t]
+      [%sub-class @t]
       [%id @t]
+      [%sub-id @t]
       [%datapath @t]
   ==
 =/  has-opt   ~(has in (sy opts))
@@ -26,37 +29,49 @@
   |=  a=*
   ?>  ?=([@ *] a)
   [`@tas`-.a +.a]
-
-=/  layout-opt
-  ?.  (~(has by named-opt) %layout)
-    %list
-  (~(got by named-opt) %layout)
 =/  class-val
   ?:  (~(has by named-opt) %class)
     (~(got by named-opt) %class)
-  ?:  =(%grid layout-opt)  
-    'kids'
   'list'
 ?>  ?=(@t class-val)
+::
 =/  id-val
   ?:  (~(has by named-opt) %id)
     (~(got by named-opt) %id)
   ''
 ?>  ?=(@t id-val)
-=/  layout-element  ?:(=(layout-opt %grid) "col-md-4" "")
+::
+=/  sub-class-val
+  ?:  (~(has by named-opt) %sub-class)
+    (~(got by named-opt) %sub-class)
+  ''
+?>  ?=(@t sub-class-val)
+::
+=/  sub-id-val
+  ?:  (~(has by named-opt) %sub-id)
+    (~(got by named-opt) %sub-id)
+  ''
+?>  ?=(@t sub-id-val)
+::
+::=/  layout-element  ?:(=(layout-opt %grid) "col-md-4" "")
 =/  sort-opt
   ?.  (~(has by named-opt) %sort)
     %default
   (~(got by named-opt) %sort)
 =/  sorted  %+  sort  ~(tap by kids)
-  |=  $:  [@ta a=tree-include]
-          [@ta b=tree-include]
+  |=  $:  [anom=@ta adat=tree-include]
+          [bnom=@ta bdat=tree-include]
       ==
   ^-  ?
-  =/  has-a  ~(has by meta.a)
-  =/  has-b  ~(has by meta.b)
-  =/  got-a  ~(got by meta.a)
-  =/  got-b  ~(got by meta.b)
+  =/  has-a  ~(has by meta.adat)
+  =/  has-b  ~(has by meta.bdat)
+  =/  got-a  ~(got by meta.adat)
+  =/  got-b  ~(got by meta.bdat)
+  ?:  =(%bump sort-opt)
+    ?:  &((~(has by bump) anom) (~(has by bump) bnom))
+      %+  gte  (~(got by bump) anom)
+               (~(got by bump) bnom)
+    ~|  %missing-bump  !!
   ?:  =(%date sort-opt)
     ?:  &((has-a %date) (has-b %date))
       %+  lte  (slav %da (got-a %date)) 
@@ -91,13 +106,14 @@
 |=  [name=@ta inc=tree-include]
 =/  has-meta  ~(has by meta.inc)
 =/  got-meta  ~(got by meta.inc)
-::=/  link-to  %+  weld  
-::  (spud (slag 1 (flop s.bem.gas)))
-::  "/{(trip name)}"
 =/  link-to  "{(trip link-to)}{(trip name)}/"
-;div(class layout-element)
+;div(class (trip sub-class-val), id (trip sub-id-val))
   ;*  ?:  &((has-opt %date) (has-meta %date))
-    ;=  ;div.date: {(trip (got-meta %date))}
+    ;=  ;span.date: {(trip (got-meta %date))}
+    ==
+  ~
+  ;*  ?:  &((has-opt %author) (has-meta %author))
+    ;=  ;h2.author: {(trip (got-meta %author))}
     ==
   ~
   ;*  ?:  (has-opt %title)
@@ -121,9 +137,5 @@
           ==
         ~
       ~
-  ;*  ?:  &((has-opt %author) (has-meta %author))
-    ;=  ;div: {(trip (got-meta %author))}
-    ==
-  ~
   ==
 ==

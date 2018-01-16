@@ -105,28 +105,24 @@
   =.  txt
     %-  crip
     """
-    /=  thread  /:  /%/comments  /%  /tree-kids/
     :-  :~
     date+'{<now>}'
     title+'{(trip hed)}'
     author+'{<him>}'
     nav+'true'
+    navsort+'bump'
     parent+'../../'
     siblings+'../'
     navhome+'../../'
+    comments+'true'
     ==
     ;>
-    # {(trip hed)}
+    ;div(id "body", class "post")
+      ;div.date: {<now>}
+      ;h1.title: {(trip hed)}
+      ;h3.author: {<him>}
 
     {(trip txt)}
-
-    ;+  (thread show+%full-no-link %author %date sort+%date ~)
-
-    ;script(type "text/javascript", src "/===/web/fora/form-submit.js");
-    ;form
-      ;textarea(type "text", name "comment");
-      ;br;
-      ;input(type "button", value "Post", onclick "addComment('{spur}');");
     ==
 
     """

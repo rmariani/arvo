@@ -589,6 +589,10 @@ div.logo.inverse:before {
   padding-top: 3rem;
   padding-bottom: 6rem; }
 
+#tree >  .container {
+  padding-top: 3rem;
+  padding-bottom: 6rem; }
+
 @media (max-width: 767px) {
   #tree > div > .container {
     padding-top: 0; }

@@ -1,15 +1,21 @@
 /=  gas   /$  fuel:html
 =/  spur  (spud (slag 1 s.bem.gas))
-;>
-# Add
-
-;script(type "text/javascript", src "/===/web/fora/form-submit.js");
-;form
-  ;input(type "text", name "title");
-  ;br;
-  ;textarea(type "text", name "comment");
-  ;br;
-  ;input(type "button", value "Post", onclick "addPost({<spur>});");
+:-  :~
+nav+'false'
+title+'Add'
 ==
+;>
+;div(class "forum", id "body")
+  # Add
 
-## [Back](../)
+  ;link(type "text/css", rel "stylesheet", href "/===/web/fora/style.css");
+  ;div(class "add-post")
+    ;form
+      ;input(type "text", name "title", placeholder "Title");
+      ;textarea(type "text", name "comment");
+      ;input(class "btn btn-primary", type "button", value "Post", onclick "addNewPost({<spur>});");
+    ==
+  ==
+
+  ## [Back](../)
+==

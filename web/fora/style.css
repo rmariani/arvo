@@ -1,0 +1,75 @@
+#body.forum h1 {padding-bottom: 0; }
+#body.forum h2 {padding-bottom: 3rem; }
+
+#body.forum div.list.post {
+  padding: 0;
+}
+
+#body.forum .list.post .thread {
+  margin-bottom: 2rem
+}
+
+#body.forum .list.post .date,
+#body.forum .list.post .title,
+#body.forum .list.post .author {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin-bottom: .6rem;
+  line-height: 1rem;
+  padding: 0;
+}
+
+
+#body.forum .list.post .title {
+  font-weight: 500;
+}
+
+#body.forum .list.post .author {
+  font-weight: 400;
+}
+
+#body.forum .ship,
+#body.forum .list.post .author:before {
+  display: none;
+}
+
+#body.forum .ship,
+#body.forum .list.post .author {
+  font-family: 'scp';
+  font-size: .8rem;
+}
+
+#body.forum .add-post {
+  margin-top: 4rem;
+}
+
+#body.forum .ship,
+#body.forum input { margin-bottom: 1rem; }
+
+#body.forum input,
+#body.forum textarea {
+  width: 80%;
+  background-color: #f7f7f9;
+}
+
+#body.forum input {
+  border: 0;
+  padding: .3rem;
+}
+
+#body.forum textarea {
+  min-height: 24rem;
+  display: block;
+  margin-bottom: 1rem;
+  border: 0;
+}
+
+#body.forum .btn {
+  text-transform: none;
+}
+
+#body.post img {
+  max-width: 100%;
+}
+

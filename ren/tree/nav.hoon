@@ -9,11 +9,12 @@
               /_  /%  /tree-front/
 /=  our-meta   /^  (map knot cord)
                /%  /tree-front/
+/=  bump  /:  /%%/
+          /^  (map @ta @da)
+          /_  /%  /tree-bump/
 ::
 |=  $=  opts  %-  list
-  $?  [%sort ?(%date %default)]
-      %reverse
-      [%class @t]
+  $?  [%class @t]
       [%id @t]
   ==
 =/  has-opt   ~(has in (sy opts))
@@ -33,18 +34,25 @@
   ''
 ?>  ?=(@t id-val)
 =/  sort-opt
-  ?.  (~(has by named-opt) %sort)
-    %default
-  (~(got by named-opt) %sort)
+  ?.  (~(has by our-meta) %navsort)
+    'default'
+  (~(got by our-meta) %navsort)
+?>  ?=(@t sort-opt)
+=/  sort-opt  `@tas`(scot %tas sort-opt)
 =/  sorted  %+  sort  ~(tap by kid-meta)
-  |=  $:  [@ta a=(map knot cord)]
-          [@ta b=(map knot cord)]
+  |=  $:  [anom=@ta adat=(map knot cord)]
+          [bnom=@ta bdat=(map knot cord)]
       ==
   ^-  ?
-  =/  has-a  ~(has by a)
-  =/  has-b  ~(has by b)
-  =/  got-a  ~(got by a)
-  =/  got-b  ~(got by b)
+  =/  has-a  ~(has by adat)
+  =/  has-b  ~(has by bdat)
+  =/  got-a  ~(got by adat)
+  =/  got-b  ~(got by bdat)
+  ?:  =(%bump sort-opt)
+    ?:  &((~(has by bump) anom) (~(has by bump) bnom))
+      %+  gte  (~(got by bump) anom)
+               (~(got by bump) bnom)
+    ~|  %missing-bump  !!
   ?:  =(%date sort-opt)
     ?:  &((has-a %date) (has-b %date))
       %+  lte  (slav %da (got-a %date)) 
@@ -111,13 +119,10 @@
     =/  got-meta  ~(got by dat)
     =/  link-to  "{sibs-link}{(trip name)}/"
     ;li(class "nav-item")
-      ;+  ?:  (has-meta %title)
-            ;a(class "nav-link", href link-to)
-              {(trip (got-meta %title))}
-            ==
-          ;a(class "nav-link", href link-to)
-            {(trip name)}
-          ==
+      ;+  
+        ?:  (has-meta %title)
+          ;a(class "nav-link", href link-to): {(trip (got-meta %title))}
+        ;a(class "nav-link", href link-to): {(trip name)}
     ==
     ==
   ==

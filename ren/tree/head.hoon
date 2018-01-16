@@ -18,11 +18,17 @@
       (~(has by qix.gas) 'dbg.nomin')                   :: and/or unminified assets
 /=    extras    /:  /===/ren/tree/head/extras           :: additional scripts
                 /^  (map knot cord)    /_  /js/
+/=  meta  /^  (map knot cord)
+          /%  /tree-front/
+=/  title  ?:  (~(has by meta) %title)
+              (~(got by meta) %title)
+           'Urbit - A personal server'
+?>  ?=(@t title)
 ::
 ::::
   ::
 ^-  marl
-;=  ;title: Urbit - A personal server
+;=  ;title: {(trip title)}
     ;meta(name "viewport", content "width=device-width, initial-scale=1");
     ;link(type "text/css", rel "stylesheet", href "//cdnjs.cloudflare.com/ajax/libs/codemirror/4.3.0/codemirror.min.css");
     ;*  ?.  nopack.dbg
@@ -36,6 +42,7 @@
         ==
     ::;link(type "text/css", rel "stylesheet", href "http://localhost:8000/docs/pub/tree/main.css");
     ;link(type "application/rss+xml", rel "alternate", href "{(spud tub)}.rss-xml");
+    ;script(type "text/javascript", src "/===/web/tree/util.js");
     ;script(type "text/javascript", src "{?.(aut "" "/~~/~/at")}".
                                         "/===/web/lib/js/urb.js");
  
