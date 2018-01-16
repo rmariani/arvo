@@ -1,5 +1,5 @@
 ::
-::::  /hoon/body/mar
+::::  /hoon/full/mar
   ::
 /?    310
 =,  html

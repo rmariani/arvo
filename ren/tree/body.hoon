@@ -18,7 +18,7 @@
     ?:  |(!(~(has by meta) %nav) =((~(got by meta) %nav) 'true'))
       ;=  ;div(id "head")
             ;div(class "ctrl")
-            ;+  (nav ~)
+            ;+  nav
             ==
           ==
           ;div(class "body col-md-9 col-md-offset-3")

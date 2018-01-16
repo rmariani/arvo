@@ -40,7 +40,6 @@
           ;link(type "text/css", rel "stylesheet", href "/===/web/lib/css/codemirror.css");
           ;link(type "text/css", rel "stylesheet", href "/===/web/tree/main.css");
         ==
-    ::;link(type "text/css", rel "stylesheet", href "http://localhost:8000/docs/pub/tree/main.css");
     ;link(type "application/rss+xml", rel "alternate", href "{(spud tub)}.rss-xml");
     ;script(type "text/javascript", src "/===/web/tree/util.js");
     ;script(type "text/javascript", src "{?.(aut "" "/~~/~/at")}".

@@ -13,26 +13,6 @@
           /^  (map @ta @da)
           /_  /%  /tree-bump/
 ::
-|=  $=  opts  %-  list
-  $?  [%class @t]
-      [%id @t]
-  ==
-=/  has-opt   ~(has in (sy opts))
-=/  named-opt  %-  malt
-  %+  turn  (skim opts |=(a=* .?(a)))
-  |=  a=*
-  ?>  ?=([@ *] a)
-  [`@tas`-.a +.a]
-=/  class-val
-  ?:  (~(has by named-opt) %class)
-    (~(got by named-opt) %class)
-  ''
-?>  ?=(@t class-val)
-=/  id-val
-  ?:  (~(has by named-opt) %id)
-    (~(got by named-opt) %id)
-  ''
-?>  ?=(@t id-val)
 =/  sort-opt
   ?.  (~(has by our-meta) %navsort)
     'default'
@@ -67,8 +47,6 @@
     |
   &
 ::
-=?  sorted  (has-opt %reverse)
-  (flop sorted)
 =/  up-link
  ?:  (~(has by our-meta) %parent)
    (~(got by our-meta) %parent)
@@ -111,7 +89,7 @@
       ==
     ==
   ==
-  ;div(class (weld "items" " {(trip class-val)}"), id (trip id-val))
+  ;div
     ;ul(class "nav")
     ;*  %+  turn  sorted
     |=  [name=@ta dat=(map knot cord)]
