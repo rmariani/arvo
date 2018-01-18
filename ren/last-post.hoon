@@ -1,6 +1,9 @@
 ::
 ::::  /hoon/last-post/ren
   ::
+::    used for redirecting a user after a successful forum post.
+::    this is done through a renderer rather than the fora app
+::    because otherwise it would redirect everyone browsing the forum
 /?  310
 /=  gas   /$  fuel:html
 /=  meta  /:  /%/posts  
@@ -10,11 +13,7 @@
 =/  filtered=(list [@ta (map knot cord)])  
   %+  skim  ~(tap by meta)
   |=  [pos=@ta dat=(map knot cord)]
-  ?.  (~(has by dat) %author)
-    |
-  ?:  =(self (~(got by dat) %author))
-    &
-  |
+  =(`self (~(get by dat) %author))
 =/  sorted=(list [@ta (map knot cord)])  
   %+  sort  filtered
   |=  $:  [@ta a=(map knot cord)]

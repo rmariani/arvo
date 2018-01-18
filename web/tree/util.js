@@ -19,9 +19,6 @@ function addNewPost(spur){
   window.urb.send(data, params, function(error, result){
     window.location.href = "../../fora.last-post?by=~"+window.urb.ship;
   });
-  
-
-
 }
 
 

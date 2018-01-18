@@ -13,12 +13,9 @@
           /^  (map @ta @da)
           /_  /%  /tree-bump/
 ::
-=/  sort-opt
-  ?.  (~(has by our-meta) %navsort)
-    'default'
-  (~(got by our-meta) %navsort)
-?>  ?=(@t sort-opt)
-=/  sort-opt  `@tas`(scot %tas sort-opt)
+=/  sort-opt/@tas  
+  %+  scot  %tas
+  (fall (~(get by our-meta) %navsort) 'default')
 =/  sorted  %+  sort  ~(tap by kid-meta)
   |=  $:  [anom=@ta adat=(map knot cord)]
           [bnom=@ta bdat=(map knot cord)]
@@ -47,24 +44,14 @@
     |
   &
 ::
-=/  up-link
- ?:  (~(has by our-meta) %parent)
-   (~(got by our-meta) %parent)
- '../'
-?>  ?=(@t up-link)
-=/  up-link  (trip up-link)
+=/  up-link/tape
+  (trip (fall (~(get by our-meta) %parent) '../'))
 ::
-=/  sibs-link
- ?:  (~(has by our-meta) %siblings)
-   (~(got by our-meta) %siblings)
- '../'
-?>  ?=(@t sibs-link)
-=/  sibs-link  (trip sibs-link)
+=/  sibs-link/tape
+  (trip (fall (~(get by our-meta) %siblings) '../'))
 ::
-=/  home-link  ?:  (~(has by kid-meta) %navhome)
-                 (~(got by kid-meta) %navhome)
-               '/'
-?>  ?=(@t home-link)
+=/  home-link  
+  (trip (fall (~(get by our-meta) %navhome) '/'))
 =/  our-idx  +:(find [[-:(scag 1 s.bem.gas) our-meta] ~] sorted)
 ::
 =/  prev-idx
@@ -80,7 +67,7 @@
 ^-  manx
 ;div(class "links")
   ;div(class "icon")
-    ;a(class "home", href (trip home-link));
+    ;a(class "home", href home-link);
     ;div(class "dpad")
       ;a(class "up", href up-link);
       ;div

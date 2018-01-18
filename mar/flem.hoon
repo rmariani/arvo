@@ -1,6 +1,8 @@
 ::
 ::::  /hoon/flem/mar
   ::
+::    elem with frontmatter
+::
 /?    310
 =,  mimes:html
 =,  html

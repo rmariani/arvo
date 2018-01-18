@@ -20,10 +20,9 @@
                 /^  (map knot cord)    /_  /js/
 /=  meta  /^  (map knot cord)
           /%  /tree-front/
-=/  title  ?:  (~(has by meta) %title)
-              (~(got by meta) %title)
+
+=/  title  %+  fall  (~(get by meta) %title)
            'Urbit - A personal server'
-?>  ?=(@t title)
 ::
 ::::
   ::
@@ -44,5 +43,4 @@
     ;script(type "text/javascript", src "/===/web/tree/util.js");
     ;script(type "text/javascript", src "{?.(aut "" "/~~/~/at")}".
                                         "/===/web/lib/js/urb.js");
- 
 ==

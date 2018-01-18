@@ -29,31 +29,22 @@
   |=  a=*
   ?>  ?=([@ *] a)
   [`@tas`-.a +.a]
-=/  class-val
-  ?:  (~(has by named-opt) %class)
-    (~(got by named-opt) %class)
-  'list'
+=/  class-val  
+  (fall (~(get by named-opt) %class) 'list')
 ?>  ?=(@t class-val)
 ::
 =/  id-val
-  ?:  (~(has by named-opt) %id)
-    (~(got by named-opt) %id)
-  ''
+  (fall (~(get by named-opt) %id) '')
 ?>  ?=(@t id-val)
 ::
 =/  sub-class-val
-  ?:  (~(has by named-opt) %sub-class)
-    (~(got by named-opt) %sub-class)
-  ''
+  (fall (~(get by named-opt) %sub-class) '')
 ?>  ?=(@t sub-class-val)
 ::
 =/  sub-id-val
-  ?:  (~(has by named-opt) %sub-id)
-    (~(got by named-opt) %sub-id)
-  ''
+  (fall (~(get by named-opt) %sub-id) '')
 ?>  ?=(@t sub-id-val)
 ::
-::=/  layout-element  ?:(=(layout-opt %grid) "col-md-4" "")
 =/  sort-opt
   ?.  (~(has by named-opt) %sort)
     %default
@@ -89,15 +80,11 @@
 =?  sorted  (has-opt %reverse)
   (flop sorted)
 =/  count
-  ?:  (~(has by named-opt) %count)
-    (~(got by named-opt) %count)
-  (lent sorted)
+  (fall (~(get by named-opt) %count) (lent sorted))
 ?>  ?=(@ count)
 ::
 =/  link-to
-  ?:  (~(has by named-opt) %datapath)
-    (~(got by named-opt) %datapath)
-  './'
+  (fall (~(get by named-opt) %datapath) './')
 ?>  ?=(@t link-to)
 ::
 ^-  manx

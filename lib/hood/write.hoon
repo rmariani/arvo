@@ -101,7 +101,6 @@
 ++  poke-fora-post
   |=  {sup/path him/ship hed/@t txt/@t}  ^+  abet
   =+  pax=(welp (flop sup) /posts/(cat 3 (scot %da now) '~'))
-  =+  spur=(spud (flop pax))
   =.  txt
     %-  crip
     """

@@ -5,7 +5,7 @@
 /=  thread  /:  /%/comments  /%  /tree-kids/
 |=  sup/spur
 ^-  manx
-
+::
 ;div
   ;+  (thread show+%full-no-link %author %date sort+%date class+'comments' sub-class+'comment' ~)
   ;div(class "add-comment")
