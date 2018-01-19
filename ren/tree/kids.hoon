@@ -46,9 +46,7 @@
 ?>  ?=(@t sub-id-val)
 ::
 =/  sort-opt
-  ?.  (~(has by named-opt) %sort)
-    %default
-  (~(got by named-opt) %sort)
+  (fall (~(get by named-opt) %sort) %default)
 =/  sorted  %+  sort  ~(tap by kids)
   |=  $:  [anom=@ta adat=tree-include]
           [bnom=@ta bdat=tree-include]
@@ -86,6 +84,10 @@
 =/  link-to
   (fall (~(get by named-opt) %datapath) './')
 ?>  ?=(@t link-to)
+=/  link-to/tape
+  ?:  =('/' (snag 0 (flop (trip link-to))))
+    (trip link-to)
+  "{(trip link-to)}/"
 ::
 ^-  manx
 ;div(class (trip class-val), id (trip id-val))
@@ -93,7 +95,7 @@
 |=  [name=@ta inc=tree-include]
 =/  has-meta  ~(has by meta.inc)
 =/  got-meta  ~(got by meta.inc)
-=/  link-to  "{(trip link-to)}{(trip name)}/"
+=/  link-to  "{link-to}{(trip name)}/"
 ;div(class (trip sub-class-val), id (trip sub-id-val))
   ;*  ?:  &((has-opt %date) (has-meta %date))
     ;=  ;span.date: {(trip (got-meta %date))}

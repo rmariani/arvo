@@ -1,6 +1,8 @@
 ::
 ::::  /hoon/bump/tree/ren
   ::
+::    returns latest date in a directory of dated files
+::    used as a sort key for other renderers
 /?  310
 /=  meta  /^  (map knot cord)
           /&front&/!flem/

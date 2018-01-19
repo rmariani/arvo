@@ -46,12 +46,25 @@
 ::
 =/  up-link/tape
   (trip (fall (~(get by our-meta) %parent) '../'))
+=/  up-link
+  ?:  =('/' (snag 0 (flop up-link)))
+    up-link
+  "{up-link}/"
 ::
 =/  sibs-link/tape
   (trip (fall (~(get by our-meta) %siblings) '../'))
+=/  sibs-link
+  ?:  =('/' (snag 0 (flop sibs-link)))
+    sibs-link
+  "{sibs-link}/"
 ::
 =/  home-link  
   (trip (fall (~(get by our-meta) %navhome) '/'))
+=/  home-link
+  ?:  =('/' (snag 0 (flop home-link)))
+    home-link
+  "{home-link}/"
+::
 =/  our-idx  +:(find [[-:(scag 1 s.bem.gas) our-meta] ~] sorted)
 ::
 =/  prev-idx

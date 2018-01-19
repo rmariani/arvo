@@ -1,6 +1,6 @@
 /sec/**/*.atom
 /web/docs*
-/web/fora/posts/*
+/web/fora*
 /web/static/*
 *.swp
 web.plan
