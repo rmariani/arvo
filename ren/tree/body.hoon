@@ -2,24 +2,43 @@
 ::::  /hoon/body/tree/ren
   ::
 /?    310
-/=    dat    /%  /tree-json/ :: default include
-/=    dat-sen  /|   /:  /%%/  /%  /tree-json/ :: default include
-                    /~  ~
-               ==
-=,  format
-=,  html
+/=  gas       /$  fuel:html
+/=  meta      /^  (map knot cord)  /%  /tree-front/
+/=  element   /%  /tree-elem/
+/=  nav       /%  /tree-nav/
+/=  comments  /%  /tree-comments/
 ::
-|%
-++  script-safe
-  !.
-  |=  a/tape  ^-  tape
-  ?~  a  a
-  ?.  ?=({$'<' $'/' *} a)  [i.a $(a t.a)]
-  ['<' '\\' '/' $(a t.t.a)]
---
-::
+=/  body/marl
+ ;=  ;+  element
+     ;+  ?:  &((~(has by meta) %comments) =((~(got by meta) %comments) 'true'))
+       (comments s.bem.gas)
+     ;div;
+ ==
+=/  contents/marl
+    ?:  |(!(~(has by meta) %nav) =((~(got by meta) %nav) 'true'))
+      ;=  ;div(id "head")
+            ;div(class "ctrl")
+            ;+  nav
+            ==
+          ==
+          ;div(class "body col-md-9 col-md-offset-3")
+          ;*  body
+          ==
+      ==
+      ::
+    ;=  ;div(class "body")
+        ;*  body
+        ==
+    ==
 ^-  marl
-=/  tree  (script-safe (en-json (pairs:enjs data+dat sein+dat-sen ~)))
-;=  ;script(type "text/javascript"): window.tree = {tree}
-    ;div#tree;
+;=  
+  ;div(id "tree")
+  ;*  ?:  |(!(~(has by meta) %container) =((~(got by meta) %container) 'true'))
+    ;=  ;div(class "container")
+        ;*  contents
+        ==
+    ==
+    contents
+  ==
 ==
+

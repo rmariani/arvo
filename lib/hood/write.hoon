@@ -86,11 +86,17 @@
   |=  {sup/path him/ship txt/@t}  ^+  abet
   =+  pax=(welp (flop sup) /comments/(scot %da now))
   =.  txt
-    %+  rap  3  :~
-      '## `'  (scot %p him)  '`'
-      '\0a'  txt
-    ==
-  (poke--data [`%md pax] %mime / (as-octs txt))
+    %-  crip
+      """
+      :-  :~
+      author+'{<him>}'
+      date+'{<now>}'
+      ==
+      ;>
+      {(trip txt)}
+
+      """
+  (poke--data [`%umd pax] %mime / (as-octs txt))
 ::
 ++  poke-fora-post
   |=  {sup/path him/ship hed/@t txt/@t}  ^+  abet
@@ -98,19 +104,28 @@
   =.  txt
     %-  crip
     """
-    ---
-    type: post
-    date: {<now>}
-    title: {(trip hed)}
-    author: {<him>}
-    navsort: bump
-    navuptwo: true
-    comments: reverse
-    ---
+    :-  :~
+    date+'{<now>}'
+    title+'{(trip hed)}'
+    author+'{<him>}'
+    nav+'true'
+    navsort+'bump'
+    parent+'../../'
+    siblings+'../'
+    navhome+'../../'
+    comments+'true'
+    ==
+    ;>
+    ;div(id "body", class "post")
+      ;div.date: {<now>}
+      ;h1.title: {(trip hed)}
+      ;h3.author: {<him>}
 
     {(trip txt)}
+    ==
+
     """
-  (poke--data [`%md pax] %mime / (as-octs txt))
+  (poke--data [`%hoon pax] %mime / (as-octs txt))
 ::
 ++  ames-secret
   ^-  @t

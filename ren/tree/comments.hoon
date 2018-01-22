@@ -1,21 +1,17 @@
 ::
 ::::  /hoon/comments/tree/ren
   ::
-/?    310
-/:    /%/comments
-  /;  |=  a/(map knot {ship marl})
-      =-    (sort - dor)
-      %+  turn  ~(tap by a)
-      |=({b/knot c/{ship marl}} [(slav %da b) c])
-  /_ 
-  /;  |=  a/manx  ^-  {ship marl}
-      ~|  a
-      ?>  ?=(_[/div ;/(~) ~[[%h2 **] ~[[%code **] ;/(who=**)]] kid=**] a)
-      %.  a
-      |:  a=[/div ;/(~) ~[[%h2 **] ~[[%code **] ;/(who=*tape)]] kid=*marl]
-      [(slav %p (crip who.a)) kid.a]
-  /&elem&/md/
+/?  310
+/=  thread  /:  /%/comments  /%  /tree-kids/
+|=  sup/spur
+^-  manx
 ::
-::::
-  ::
-`(list (pair time {ship marl}))`-.-
+;div
+  ;+  (thread show+%full-no-link %author %date sort+%date class+'comments' sub-class+'comment' ~)
+  ;div(class "add-comment")
+    ;form
+      ;textarea(type "text", name "comment");
+      ;input(type "button", class "btn btn-primary", value "Add comment", onclick "addNewComment('{(spud sup)}');");
+    ==
+  ==
+==

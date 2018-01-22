@@ -1,18 +1,28 @@
 ::
-::::  /hoon/elem/mar
+::::  /hoon/last-post/mar
   ::
 /?    310
 =,  mimes:html
 =,  html
-|_  own/manx
+|_  url/tape
 ::
 ++  grow                                                ::  convert to
   |%
-  ++  hymn  ;html:(head body:"+{own}")                  ::  convert to %hymn
   ++  html  (crip (en-xml hymn))                        ::  convert to %html
   ++  mime  [/text/html (as-octs html)]                 ::  convert to %mime
+  ++  hymn
+    ;html
+      ;head
+        ;title: redirecting to {url}
+        ;script
+          ;-  "window.location.href = {<url>}"
+        ==
+      ==
+      ;body
+        ;p: redirecting to {url}
+      ==
+    ==
   --
-++  garb  /snip/body                                    ::  grabbed by
 ++  grab  |%                                            ::  convert from
-          ++  noun  manx                                ::  clam from %noun
+          ++  noun  tape                                ::  clam from %noun
 --        --

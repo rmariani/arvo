@@ -1,1 +1,6 @@
 /sec/**/*.atom
+/web/docs*
+/web/fora*
+/web/static/*
+*.swp
+web.plan

@@ -3,13 +3,9 @@
   ::
 /?    310
 |-
-$:  mime/mime
-    body/json
-    head/json
-    snip/json
-    meta/json
-    sect/json
-    comt/json
-    plan/json
-    bump/knot
+$:  meta=(map knot cord)
+    head=marl
+    snip=marl
+    body=marl
+    full=manx
 ==
