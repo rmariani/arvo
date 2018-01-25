@@ -29,16 +29,7 @@
 ^-  marl
 ;=  ;title: {(trip title)}
     ;meta(name "viewport", content "width=device-width, initial-scale=1");
-    ;link(type "text/css", rel "stylesheet", href "//cdnjs.cloudflare.com/ajax/libs/codemirror/4.3.0/codemirror.min.css");
-    ;*  ?.  nopack.dbg
-          :_  ~
-          ;link(type "text/css", rel "stylesheet", href "/===/web/pack/css/codemirror-fonts-bootstrap-tree.css");
-        ;=
-          ;link(type "text/css", rel "stylesheet", href "/===/web/lib/css/fonts.css");
-          ;link(type "text/css", rel "stylesheet", href "/===/web/lib/css/bootstrap.css");
-          ;link(type "text/css", rel "stylesheet", href "/===/web/lib/css/codemirror.css");
-          ;link(type "text/css", rel "stylesheet", href "/===/web/tree/main.css");
-        ==
+    ;link(type "text/css", rel "stylesheet", href "/===/web/lib/css/base.css");
     ;link(type "application/rss+xml", rel "alternate", href "{(spud tub)}.rss-xml");
     ;script(type "text/javascript", src "/===/web/tree/util.js");
     ;script(type "text/javascript", src "{?.(aut "" "/~~/~/at")}".
