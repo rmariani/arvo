@@ -117,7 +117,7 @@
 :>  #
 :>    functional cores and arms.
 ::
-|_  {bol/bowl:gall state}
+|_  {bol/bowl:gall $0 state}
 ::
 :>  #  %transition
 :>    prep transition
@@ -125,12 +125,20 @@
 ++  prep
   :>  adapts state.
   ::
-  |=  old/(unit state)
+  =>  |%
+      ++  states
+        $%({$0 s/state})
+      --
+  =|  mos/(list move)
+  |=  old/(unit states)
   ^-  (quip move _..prep)
   ?~  old
     %-  pre-bake
     ta-done:ta-init:ta
-  [~ ..prep(+<+ u.old)]
+  ?-  -.u.old
+      $0
+    [mos ..prep(+<+ u.old)]
+  ==
 ::
 :>  #  %engines
 :>    main cores.
@@ -316,11 +324,13 @@
       ?-  -.act
         ::  circle configuration
         $create  (action-create +.act)
+        $design  (action-design +.act)
         $source  (action-source +.act)
         $depict  (action-depict +.act)
         $filter  (action-filter +.act)
         $permit  (action-permit +.act)
         $delete  (action-delete +.act)
+        $usage   (action-usage +.act)
         ::  messaging
         $convey  (action-convey +.act)
         $phrase  (action-phrase +.act)
@@ -384,11 +394,20 @@
         %^  impact  nom  %new
         :*  [[[our.bol nom] ~] ~ ~]
             des
+            ~
             *filter
             :-  typ
             ?.  ?=(?($village $journal) typ)  ~
             [our.bol ~ ~]
         ==
+      (ta-evil (crip "{(trip nom)}: already exists"))
+    ::
+    ++  action-design
+      :>  creates a story with the specified config.
+      ::
+      |=  {nom/name cof/config}
+      ?.  (~(has in stories) nom)
+        (impact nom %new cof)
       (ta-evil (crip "{(trip nom)}: already exists"))
     ::
     ++  action-delete
@@ -437,6 +456,15 @@
       ?~  soy
         (ta-evil (crip "no story {(trip nom)}"))
       so-done:(~(so-sources so nom ~ u.soy) sub srs)
+    ::
+    ++  action-usage
+      :>  add or remove usage tags.
+      ::
+      |=  {nom/name add/? tas/tags}
+      =+  soy=(~(get by stories) nom)
+      ?~  soy
+        (ta-evil (crip "no story {(trip nom)}"))
+      so-done:(~(so-usage so nom ~ u.soy) add tas)
     ::
     :>  #  %messaging
     +|
@@ -868,7 +896,8 @@
         $bear     (so-bear bur.rum)
         $peer     (so-delta-our rum)
         $gram     (so-open src nev.rum)
-        $remove   (so-delta-our %config src %remove ~)
+        $remove   ::TODO  should also remove from {remotes}?
+                  (so-delta-our %config src %remove ~)
       ::
           $new
         ?:  =(src so-cir)
@@ -1101,6 +1130,17 @@
       ^+  +>
       ?:  =(cap cap.shape)  +>
       (so-delta-our %config so-cir %caption cap)
+    ::
+    ++  so-usage
+      :>  add or remove usage tags.
+      ::
+      |=  {add/? tas/tags}
+      ^+  +>
+      =/  sas/tags
+        %.  tag.shape
+        ?:(add ~(dif in tas) ~(int in tas))
+      ?~  sas  +>.$
+      (so-delta-our %config so-cir %usage add sas)
     ::
     ++  so-filter
       :>    change message rules
@@ -1361,14 +1401,6 @@
       =/  sus/(set ship)
         %.  sis.con.shape
         ?:(add ~(dif in sis) ~(int in sis))
-      =.  +>.$
-        ::  if banishing: notify only those affected.
-        ::  if inviting: notify all targets.
-        =?  sis  !inv  sus
-        =-  (so-act [%phrase - [%inv inv so-cir]~])
-        %-  ~(rep in `(set ship)`sis)
-        |=  {s/ship a/audience}
-        (~(put in a) [s %inbox])
       ?~  sus  +>.$
       ::  if banished, remove their presences.
       =?  +>.$  !inv
@@ -2173,9 +2205,9 @@
     ::  only auto-federate channels for now.
     ?.  ?=($channel sec.con.shape.s)  ~
     :+  ~  n
-    ::  share no more than 2k messages at once, for performance reasons.
-    :+  ?:  (lte count.s 2.000)  grams.s
-        (slag (sub count.s 2.000) grams.s)
+    ::  share no more than the last 100, for performance reasons.
+    :+  ?:  (lte count.s 100)  grams.s
+        (slag (sub count.s 100) grams.s)
       [shape.s mirrors.s]
     [locals.s remotes.s]
   ::
@@ -2290,6 +2322,7 @@
     ?+  -.det  %hasnot
       $gram     %grams
       $new      %config-l
+      $remove   %config-l
       $config   ?:  =(cir.det [our.bol nom])
                 %config-l  %config-r
       $status   ?:  =(cir.det [our.bol nom])
@@ -2382,10 +2415,15 @@
     ?.  =(nom.qer nom.det)                            ~
     ?.  %-  circle-feel-story
         [wer.qer wat.qer nom.det det.det]             ~
-    =/  sor  (~(got by stories) nom.qer)
-    ?.  =<  in  %.  ran.qer
-        ~(so-in-range so:ta nom.qer ~ sor)            ~
-    ?.  ?=(?($gram $new $config $status) -.det.det)   ~
+    ?.  ?|  ?=($remove -.det.det)
+          ::
+            =<  in  %.  ran.qer
+            =+  soy=(~(got by stories) nom.qer)
+            ~(so-in-range so:ta nom.qer ~ soy)
+        ==
+      ~
+    =+  out=?($gram $new $config $status $remove)
+    ?.  ?=(out -.det.det)   ~
     :+  ~  %circle
     ?+  det.det  det.det
         {$gram *}
@@ -2639,11 +2677,10 @@
   |=  pax/path
   ^-  (quip move _+>)
   %-  pre-bake
-  :_  ~
   =+  qer=(path-to-query %circle pax)
   ?>  ?=($circle -.qer)
-  :+  %story  nom.qer
-  [%peer | src.bol qer]
+  ?.  (~(has by stories) nom.qer)  ~
+  [%story nom.qer %peer | src.bol qer]~
 ::
 ++  reap
   :>    subscription n/ack
