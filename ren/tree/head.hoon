@@ -32,6 +32,7 @@
     ;link(type "text/css", rel "stylesheet", href "/===/web/lib/css/base.css");
     ;link(type "application/rss+xml", rel "alternate", href "{(spud tub)}.rss-xml");
     ;script(type "text/javascript", src "/===/web/tree/util.js");
+    ;script(type "text/javascript", src "/===/web/lib/base.js");
     ;script(type "text/javascript", src "{?.(aut "" "/~~/~/at")}".
                                         "/===/web/lib/js/urb.js");
 ==
