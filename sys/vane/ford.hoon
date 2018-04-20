@@ -656,7 +656,7 @@
     ::
     ++  exec                                            ::  execute task
       ^+  ..zo
-      ?:  !=(~ kig)  ..zo
+      ?:  !=(~ kig)  abet
       =+  bot=(make-with-normalized-beak [~ jav.bay deh.bay] kas)
       =^  dep  bot  (clad bot)
       =.  ..exec  (dash p.bot)
