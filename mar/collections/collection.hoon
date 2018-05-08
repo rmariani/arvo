@@ -47,6 +47,36 @@
         ;input.red(type "submit", value "Archive this collection");
       ==
     ==
+  ++  json
+    =,  enjs:format
+    %-  pairs
+        :~  :-  %config
+            %-  pairs
+            :~  description+[%s desc.conf.col]
+                public+[%b publ.conf.col]
+                visible+[%b visi.conf.col]
+                comments+[%b comm.conf.col]
+                xenopost+[%b xeno.conf.col]
+                :-  %except
+                :-  %a
+                %+  turn
+                  ~(tap in mems.conf.col)
+                |=  a/@p
+                [%s (scot %p a)]
+            ==
+            :-  %topics
+            :-  %a
+            %+  turn
+              ~(tap by tops.col)
+            |=  [e=@da f=topicful]
+            %-  pairs
+            :~  title+[%s tit.info.f]
+                who+[%s (scot %p who.info.f)]
+                what+[%s (of-wain:format wat.info.f)]
+                id+[%s (scot %da e)]
+                modified+[%s (scot %da mod.info.f)]
+            ==
+        ==
   --
 ::
 ++  grab

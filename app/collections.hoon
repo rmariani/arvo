@@ -364,7 +364,21 @@
         [%fat [%text wat] [%lin | msg]]~
     ^-  {tar/name:hall msg/cord}
     ::TODO
-    [(circle-for col) 'TODO']
+    ::
+    ::  put post id and title in post message
+    =/  lin   %-  crip
+              ;:  weld
+                  (scow %da top)
+                  "|"
+                  %-  trip  
+                  =<  tit.info  
+                  %-  need
+                  (ta-get-topic col top)
+              ==
+    :: this can't be the best way to switch on top v com?
+    ?~  com
+      [(circle-for col) lin]
+    [(circle-for-topic col top) lin]
   --
 ::
 ++  hall-permit

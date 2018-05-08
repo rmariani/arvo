@@ -46,6 +46,20 @@
         ;input(type "submit");
       ==
     ==
+  ++  json
+    =,  enjs:format
+    %-  pairs
+    %+  turn
+      ~(tap by cos)
+    |=  [a=@da b=collection]
+    :-  (scot %da a)
+    %-  pairs
+    :~
+    :-  %description
+    [%s desc.conf.b]
+    :-  %modified
+    [%s (scot %da mod.conf.b)]
+    ==
   --
 ::
 ++  grab
