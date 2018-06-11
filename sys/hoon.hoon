@@ -6021,6 +6021,22 @@
     ?.  ?=($0 -.ben)  ben
     =+  val=(gul p.ref p.ben)
     ?~(val [%1 p.ben ~] ?~(u.val [%2 [[%hunk (mush p.ben)] tax]] [%0 u.u.val]))
+  ::
+      {$12 {b/@ c/*} d/*}
+    =+  bog=$(fol d.fol)
+    ?.  ?=({$0 *} bog)  bog
+    =+  lot=$(fol c.fol)
+    ?.  ?=({$0 *} lot)  lot
+    =+  [axe=b.fol big=p.bog lit=p.lot]
+    ^-  tone
+    :-  %0
+    |-  ^-  p/*
+    ?:  =(2 axe)  [lit +.big]
+    ?:  =(3 axe)  [-.big lit]
+    =+  mor=(mas axe)
+    ?:  =(2 (cap axe))
+      [$(big -.big, axe mor) +.big]
+    [-.big $(big +.big, axe mor)]
   ==
 ::
 ++  mock
@@ -6801,6 +6817,23 @@
       ::  else ignore hint
       ::
       $(fol d.fol)
+    ::
+    ::  12; edit
+    ::
+        {$12 {b/@ c/*} d/*}
+      ::  tar:  target of edit
+      ::
+      =+  tar=$(fol d.fol)
+      ::  propagate stop
+      ::
+      ?~  tar  ~
+      ::  inn:  inner value
+      ::
+      =+  inn=$(fol c.fol)
+      ::  propagate stop
+      ::
+      ?~  inn  ~
+      (mutate b.fol inn tar)
     ==
   ::
   ++  apex
@@ -6916,9 +6949,75 @@
                       [left.mask.bus -.data.bus] 
                     [rite.mask.bus +.data.bus]
     ==       ==
-  ::  require complete intermediate step
+  ::
+  ++  mutate
+    ::  change a single axis in a seminoun
+    ::
+    |=  $:  ::  axe: axis within big to change
+            ::  lit: (little) seminoun to insert within big at axe
+            ::  big: seminoun to mutate
+            ::
+            axe/@
+            lit/seminoun
+            big/seminoun
+        ==
+    ^-  result
+    ::  stop on zero axis
+    ::
+    ?~  axe  ~
+    ::  edit root of big means discard it
+    ::
+    ?:  =(1 axe)  lit
+    ::  decompose axis into path of head-tail
+    ::
+    |-  ^-  result
+    ?:  =(2 axe)
+      ::  mutate head of cell
+      ::
+      =+  tal=(fragment 3 big)
+      ::  propagate stop
+      ::
+      ?~  tal  ~
+      (combine lit tal)
+    ?:  =(3 axe)
+      ::  mutate tail of cell
+      ::
+      =+  hed=(fragment 2 big)
+      ::  propagate stop
+      ::
+      ?~  hed  ~
+      (combine hed lit)
+    ::  deeper axis: keep one side of big and
+    ::  recurse into the other with smaller axe
+    ::
+    =+  mor=(mas axe)
+    =+  hed=(fragment 2 big)
+    ::  propagate stop
+    ::
+    ?~  hed  ~
+    =+  tal=(fragment 3 big)
+    ::  propagate stop
+    ::
+    ?~  tal  ~
+    ?:  =(2 (cap axe))
+      ::  recurse into the head
+      ::
+      =+  mut=$(big hed, axe mor)
+      ::  propagate stop
+      ::
+      ?~  mut  ~
+      (combine mut tal)
+    ::  recurse into the tail
+    ::
+    =+  mut=$(big tal, axe mor)
+    ::  propagate stop
+    ::
+    ?~  mut  ~
+    (combine hed mut)
   ::
   ++  require
+    ::  require complete intermediate step
+    ::
     |=  $:  noy/result
             yen/$-(* result)
         ==
@@ -7115,24 +7214,66 @@
 ::
 ++  hike
   ~/  %hike
-  |=  {axe/axis pac/(list {p/axis q/nock})}
-  ^-  nock
-  ?~  pac
-    [%0 axe]
-  =+  zet=(skim pac.$ |=({p/axis q/nock} [=(1 p)]))
-  ?~  zet
-    =+  tum=(skim pac.$ |=({p/axis q/nock} ?&(!=(1 p) =(2 (cap p)))))
-    =+  gam=(skim pac.$ |=({p/axis q/nock} ?&(!=(1 p) =(3 (cap p)))))
-    %+  cons
-      %=  $
-        axe  (peg axe 2)
-        pac  (turn tum |=({p/axis q/nock} [(mas p) q]))
-      ==
+  |=  [a=axis pac=(list (pair axis nock))]
+  |^  =/  rel=(map axis nock)  (roll pac insert)
+      =/  ord=(list axis)      (sort ~(tap in ~(key by rel)) gth)
+      |-  ^-  nock
+      ?~  ord
+        [%0 a]
+      =/  b=axis  i.ord
+      =/  c=nock  (~(got by rel) b)
+      =/  d=nock  $(ord t.ord)
+      [%12 [b c] d]
+  ::
+  ++  contains
+    |=  [container=axis contained=axis]
+    ^-  ?
+    =/  big=@    (met 0 container)
+    =/  small=@  (met 0 contained)
+    ?:  (lte small big)  |
+    =/  dif=@  (sub small big)
+    =(container (rsh 0 dif contained))
+  ::
+  ++  parent
+    |=  a=axis
+    `axis`(rsh 0 1 a)
+  ::
+  ++  sibling
+    |=  a=axis
+    ^-  axis
+    ?~  (mod a 2)
+      +(a)
+    (dec a)
+  ::
+  ++  insert
+    |=  [e=[axe=axis fol=nock] n=(map axis nock)]
+    ^-  (map axis nock)
+    ?:  =/  a=axis  axe.e
+        |-  ^-  ?
+        ?:  =(1 a)  |
+        ?:  (~(has by n) a)
+          &
+        $(a (parent a))
+      ::  parent already in
+      n
+    =.  n
+      ::  remove children
+      %+  roll  ~(tap by n)
+      |=  [[axe=axis fol=nock] m=_n]
+      ?.  (contains axe.e axe)  m
+      (~(del by m) axe)
+    =/  sib  (sibling axe.e)
+    =/  un   (~(get by n) sib)
+    ?~  un   (~(put by n) axe.e fol.e)
+    ::  replace sibling with parent
     %=  $
-      axe  (peg axe 3)
-      pac  (turn gam |=({p/axis q/nock} [(mas p) q]))
+      n  (~(del by n) sib)
+      e  :-  (parent sib)
+         ?:  (gth sib axe.e)
+           (cons fol.e u.un)
+         (cons u.un fol.e)
     ==
-  ?>(?=({* ~} zet) q.i.zet)
+  --
 ::
 ++  jock
   |=  rad/?
