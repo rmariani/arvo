@@ -20,7 +20,7 @@
     ++  action
       %-  of  :~
         create+config
-        change-config+config
+        change-config+change-config
         delete+(ot host+(su fed:ag) col+(se %da) ~)
         submit+(ot host+(su fed:ag) col+(se %da) tit+so wat+wain ~)
         comment+(ot host+(su fed:ag) col+(se %da) top+(se %da) com+null-or-da wat+wain ~)
@@ -33,6 +33,16 @@
       %+  cu  |=(a=dime ?+(a !! [%n ~] ~, [%da @da] q.a))
       %+  cu  |=(a=coin ?+(a !! [%$ ^] p.a))
       (su nuck:so.hoon)
+    ::
+    ++  change-config
+      %-  ot
+      :~  col+(se %da)
+          description+so
+          visible+bo
+          read+rule-parse
+          write-post+rule-parse
+          write-reply+rule-parse
+      ==
     ::
     ++  config
       %-  ot
