@@ -96,6 +96,10 @@
       (cold %hoon (jest '.hoon')) 
       (cold %js (jest '.js')) 
       (cold %css (jest '.css')) 
+      (cold %svg (jest '.svg'))
+      (cold %png (jest '.png'))
+      (cold %jpg (jest '.jpg'))
+      (cold %gif (jest '.gif'))
       (easy %$)
     ==
   ==
@@ -199,7 +203,7 @@
     [%cast %elem [%file loc(s [normed-ext s.loc])]]
   ?:  ?=(%html normed-ext)
     [%cast %hymn [%file loc(s [normed-ext s.loc])]]
-  ?:  ?=(?(%js %css) normed-ext)
+  ?:  ?=(?(%js %css %svg %jpg %png %gif) normed-ext)
     [%file loc(s [normed-ext s.loc])]
   ~_  leaf+"Error: Unsupported filetype: {<normed-ext>}"  !!
 ::
@@ -242,7 +246,7 @@
   ::  if js or css, pass it through without processing it
   ::
   ?.  ?=(?(%hymn %elem) file-type)
-    ?>  ?=(?(%js %css) file-type)
+::    ?>  ?=(?(%js %css) file-type)
     =.  s.out.bem  [file-type s.out.bem]
     =/  pax  (en-beam:format out.bem)
     ?>  ?=(@t file-contents)
