@@ -1,6 +1,6 @@
 ::  /app/collection/hoon
 ::
-/-  hall, *collections
+/-  hall, *collections, profile
 /+  hall, rekey, colls
 /=  cols   /:  /===/web/collections  /collections/
 ::
@@ -37,6 +37,7 @@
     ++  move  (pair bone card)                          ::  all actions
     ++  poke                                            ::
       $%  {$hall-action action:hall}                    ::
+          {$write-profile profile:profile}
       ==                                                ::
     ++  card                                            ::
       $%  {$info wire ship term nori:clay}              ::
@@ -355,7 +356,6 @@
       [%source %inbox & (sy `source:hall`[our.bol nam]~ ~)]
       (hall-permit nam & mems.cof)
     ==
-  ::
   ::
   ++  ta-hall-notify
     |=  {col/time top/@da com/(unit @da) new/? wat/wain}
