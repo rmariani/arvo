@@ -100,6 +100,7 @@
       (cold %png (jest '.png'))
       (cold %jpg (jest '.jpg'))
       (cold %gif (jest '.gif'))
+      (cold %$ (jest '/'))
       (easy %$)
     ==
   ==
