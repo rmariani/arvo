@@ -103,6 +103,7 @@
       {$config cir/circle dif/diff-config}              :<  new/changed config
       {$status cir/circle who/ship dif/diff-status}     :<  new/changed status
       {$remove $~}                                      :<  removed story
+      {$read cir/circle red/@ud}                        :<  changed last-read
   ==                                                    ::
 ++  rumor-story                                         :>  story rumor
   $?  diff-story                                        :<  both in & outward
@@ -155,6 +156,7 @@
       ::  changing shared ui                            ::
       {$glyph gyf/char aud/audience bin/?}              :<  un/bind a glyph
       {$nick who/ship nic/nick}                         :<  new identity
+      {$read nom/name red/@ud}                          :<  update last-read
       ::  misc changes                                  ::
       {$public add/? cir/circle}                        :<  show/hide membership
   ==                                                    ::

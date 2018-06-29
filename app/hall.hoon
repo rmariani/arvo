@@ -44,6 +44,7 @@
           known/(map serial @ud)                        :<  messages heard
           sourced/(map circle (list @ud))               :<  heard from
           sequence/(map circle @ud)                     :<  last-heard p circle
+          read/(map circle @ud)                         :<  last read message
           locals/group                                  :<  local status
           remotes/(map circle group)                    :<  remote status
           shape/config                                  :<  configuration
@@ -51,6 +52,28 @@
           peers/(jar ship query)                        :<  subscribers
           inherited/_|                                  :<  from parent?
       ==                                                ::
+  ++  old-state                                           :>  application state
+    $:  stories/(map name old-story)                      :<  conversations
+        outbox/(map serial tracking)                  :<  sent messages
+        log/(map name @ud)                            :<  logged to clay
+        nicks/(map ship nick)                         :<  local nicknames
+        binds/(jug char audience)                     :<  circle glyph lookup
+        public/(set circle)                           :<  publicly member of
+        rir/wire                                      :<  current rumor wire
+    ==                                                ::
+  ++  old-story                                           :>  wire content
+    $:  count/@ud                                     :<  (lent grams)
+        grams/(list telegram)                         :<  all messages
+        known/(map serial @ud)                        :<  messages heard
+        sourced/(map circle (list @ud))               :<  heard from
+        sequence/(map circle @ud)                     :<  last-heard p circle
+        locals/group                                  :<  local status
+        remotes/(map circle group)                    :<  remote status
+        shape/config                                  :<  configuration
+        mirrors/(map circle config)                   :<  remote config
+        peers/(jar ship query)                        :<  subscribers
+        inherited/_|                                  :<  from parent?
+    ==                                                ::
     :>  #  %deltas
     :>    changes to state
     +|
@@ -117,7 +140,7 @@
 :>  #
 :>    functional cores and arms.
 ::
-|_  {bol/bowl:gall $0 state}
+|_  {bol/bowl:gall $1 state}
 ::
 :>  #  %transition
 :>    prep transition
@@ -127,7 +150,7 @@
   ::
   =>  |%
       ++  states
-        $%({$0 s/state})
+        $%({$0 s/old-state} {$1 s/state})
       --
   =|  mos/(list move)
   |=  old/(unit states)
@@ -137,8 +160,41 @@
     ta-done:ta-init:ta
   ?-  -.u.old
       $0
+    [mos ..prep(+<+ [%1 (transition s.u.old)])]
+      $1
     [mos ..prep(+<+ u.old)]
   ==
+::
+++  transition
+  |=  a/old-state
+  ^-  state
+  (state (map-old-to-story stories:a) outbox:a log:a nicks:a binds:a public:a rir:a)
+::
+++  map-old-to-story
+  |=  a/(map name old-story)
+  ^-  (map name story)
+  =/  namelist=(list name)  ~(tap in ~(key by a))
+  =/  size=@ud  ~(wyt in ~(key by a))
+  =/  i=@  0
+  =/  b=(map name story)  *(map name story)
+  |-
+  ?:  (lte size 0)
+    b
+  ?:  (lte i (dec size))
+    $(namelist namelist, size size, i .+(i), b (~(put by b) (snag i namelist) (old-story-to-story (~(get by a) (snag i namelist)))))
+  b
+::
+++  old-story-to-story
+  |=  a/(unit old-story)
+  ^-  story
+  ?~  a
+    !!
+  (story count:u.a grams:u.a known:u.a sourced:u.a sequence:u.a (sequence-to-read sequence:u.a) locals:u.a remotes:u.a shape:u.a mirrors:u.a peers:u.a inherited:u.a)
+::
+++  sequence-to-read
+  |=  seq/(map circle @ud)
+  ^-  (map circle @ud)
+  (~(run by seq) |=(b/@ud 0))
 ::
 :>  #  %engines
 :>    main cores.
@@ -340,6 +396,7 @@
         ::  changing shared ui
         $glyph   (action-glyph +.act)
         $nick    (action-nick +.act)
+        $read    (action-read +.act)
         ::  misc changes
         $public  (action-public +.act)
       ==
@@ -531,6 +588,14 @@
       ::
       |=  {lif/char aud/audience bin/?}
       (ta-delta %glyph bin lif aud)
+    ::
+    ++  action-read
+      :>  change last-read @ud
+      |=  {nom/name red/@ud}
+      =+  soy=(~(get by stories) nom)
+      ?~  soy
+        (ta-evil (crip "no story {(trip nom)}"))
+      so-done:(~(so-read so nom ~ u.soy) red)
     ::
     ++  action-public
       :>    show/hide membership
@@ -895,6 +960,7 @@
       ?-  -.rum
         $bear     (so-bear bur.rum)
         $peer     (so-delta-our rum)
+        $read     (so-delta-our rum)
         $gram     (so-open src nev.rum)
         $remove   ::TODO  should also remove from {remotes}?
                   (so-delta-our %config src %remove ~)
@@ -1427,6 +1493,13 @@
         [s %remove ~]
       (so-delta-our %config so-cir %permit [add sus])
     ::
+    ++  so-read
+      :>    change last-read
+      ::
+      |=  red/@ud
+      ^+  +>
+      (so-delta-our %read so-cir red)
+    ::
     ++  so-admire
       :>    accept from
       :>
@@ -1815,6 +1888,9 @@
       ::
           $sequent
         +>(sequence (~(put by sequence) cir.det num.det))
+      ::
+          $read
+        +>(read (~(put by read) cir.det red.det))
       ::
           $gram
         (sa-change-gram +.det)
@@ -2278,6 +2354,7 @@
     $inherited  !!
     $sequent    !!
     $sourced    !!
+    $read       !!
   ::
       $gram
     :+  %gram

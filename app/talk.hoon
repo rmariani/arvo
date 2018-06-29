@@ -100,6 +100,7 @@
           {$unset term}                                 :<  disable setting
           {$width @ud}                                  :<  change display width
           {$timez ? @ud}                                :<  adjust shown times
+          {$read name @ud}                              :<  set last-read
           ::  miscellaneous                             ::
           {$show circle}                                :<  show membership
           {$hide circle}                                :<  hide membership
@@ -852,6 +853,8 @@
         ::
           ;~((glue ace) (perk %hide ~) circ)
         ::
+          ;~((glue ace) (perk %read ~) cire dem:ag)
+        ::
         ::  ui settings
         ::
           ;~(plug (perk %bind ~) ;~(pfix ace glyph) (punt ;~(pfix ace cirs)))
@@ -1032,6 +1035,7 @@
           $unset   (unset +.job)
           $width   (width +.job)
           $timez   (timez +.job)
+          $read    (read +.job)
           ::  miscelaneous
           $show    (public & +.job)
           $hide    (public | +.job)
@@ -1426,6 +1430,11 @@
           ..sh-work
         %.  "unbound {<cha>}"
         sh-note:sh-prod:(unset-glyph cha aud)
+      ::
+      ++  read
+        |=  {nom/name red/@ud}
+        ^+  ..sh-work
+        (sh-act %read nom red)
       ::
       ++  nick
         :>    %nick
