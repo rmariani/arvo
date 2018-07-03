@@ -135,6 +135,7 @@
     ^-  json
     %-  pairs  :~
       nes+a+(turn nes.a enve)  ::TODO  maybe map
+      red+(mo red.a (cork circ:en-tape crip) numb)
       cos+(loby cos.a)
       pes+(crow pes.a)
     ==
@@ -168,6 +169,7 @@
                 ==
       $remove   b+&
       $gram     (enve nev.a)
+      $read     (pairs cir+(circ cir.a) red+(numb red.a) ~)
     ==
   ::
   ++  dico                                              ::>  diff-config
@@ -399,6 +401,7 @@
     ^-  $-(json (unit package))
     %-  ot  :~
       nes+(ar enve)
+      red+(op circ:de-tape (su dem:ag))
       cos+loby
       pes+crow
     ==

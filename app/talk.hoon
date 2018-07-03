@@ -432,6 +432,9 @@
         %+  ~(put by rem)  who.rum
         (change-status cur dif.rum)
       ==
+    ::
+        $read
+      +>
     ==
   ::
   ++  ta-change-glyph

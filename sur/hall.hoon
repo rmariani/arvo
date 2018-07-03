@@ -92,6 +92,7 @@
   ==                                                    ::
 ++  package                                             :>  story state
   $:  nes/(list envelope)                               :<  messages
+      red/(map circle @ud)                              :<  last read message
       shipment                                          :<  metadata
   ==                                                    ::
 ++  diff-glyph  {bin/? gyf/char aud/audience}           :<  un/bound glyph

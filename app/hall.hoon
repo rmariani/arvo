@@ -1,6 +1,6 @@
 ::                                                      ::  ::
 ::::  /app/hall/hoon                                    ::  ::
-  ::                                                    ::  ::
+::                                                    ::  ::
 ::
 ::TODO  document gate samples fully.
 ::
@@ -926,8 +926,15 @@
     ++  so-take
       :>  apply the prize as if it were rumors.
       ::
-      |=  {src/circle nes/(list envelope) cos/lobby pes/crowd}
+      |=  {src/circle nes/(list envelope) red/(map circle @ud) cos/lobby pes/crowd}
       ^+  +>
+      =.  +>.$
+        =+  car=~(tap by red)
+        |-
+        ?~  car  +>.^$
+        =.  +>.^$
+          (so-hear | p.i.car %read p.i.car q.i.car)
+        $(car t.car)
       =.  +>.$
         (so-hear | src %config src %full loc.cos)
       =.  +>.$
@@ -2318,7 +2325,7 @@
     ?~  soy  ~
     :+  ~  ~
     :-  %circle
-    :+  ?.  (~(has in wat.qer) %grams)  ~
+    :^  ?.  (~(has in wat.qer) %grams)  ~
         %+  turn
           =-  (~(so-first-grams so:ta nom.qer ~ -) ran.qer)
           ::TODO  this can be done more efficiently.
@@ -2331,6 +2338,7 @@
           |=  n/@ud
           (snag n grams.u.soy)
         (cury gram-to-envelope nom.qer)
+      read.u.soy
       :-  shape.u.soy
       ?.  (~(has in wat.qer) %config-r)  ~
       mirrors.u.soy
@@ -2437,6 +2445,10 @@
     ?+  -.det  ~
       $glyph  `[%client det]
       $nick   `[%client det]
+      $story  ?:
+        ?=($read -.det.det)
+      :+  ~  %circle  det.det
+        ~
     ==
   ::
       $circles
