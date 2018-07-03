@@ -13,6 +13,7 @@
     =>  [. dejs:hall-json]  ::TODO  =,
     =,  dejs-soft:format
     |=  a/json
+    ~&  a
     ^-  action:hall
     =-  (need ((of -) a))
     :~  create+(ot nom+so des+so sec+secu ~)
@@ -32,6 +33,7 @@
         ::
         glyph+(ot gyf+so aud+audi bin+bo ~)
         nick+(ot who+(su fed:ag) nic+so ~)
+        read+(ot nom+so red+ni ~)
         ::
         public+(ot add+bo cir+circ ~)
     ==
@@ -63,6 +65,7 @@
       ::
       $glyph   ~[gyf+s+gyf.act aud+(sa aud.act circ) bin+b+bin.act]
       $nick    ~[who+(ship who.act) nic+s+nic.act]
+      $read    ~[nom+s+nom.act red+(numb red.act)]
       ::
       $public  ~[add+b+add.act cir+(circ cir.act)]
     ==
