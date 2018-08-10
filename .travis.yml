@@ -6,10 +6,9 @@ before_install:
 - wget -i pin-urbit-release.url -O ./urbit.deb
 - sudo apt install ./urbit.deb
 before_script: bash get-or-build-pill.sh
-before_deploy: "[ -d piers ] || { mkdir piers && tar cvzSf piers/zod-$TRAVIS_COMMIT.tgz
-  zod/; }"
+# https://github.com/travis-ci/travis-ci/issues/2570
+before_deploy: "[ -d piers ] || { mkdir piers && tar cvzSf piers/zod-$TRAVIS_COMMIT.tgz zod/; }"
 deploy:
-  matrix:
   - skip_cleanup: true
     provider: gcs
     access_key_id: GOOGTADOPP55X5ZTH3IKAXQW
