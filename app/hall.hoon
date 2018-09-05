@@ -2881,11 +2881,18 @@
   ::
   |=  pax/path
   ^-  (quip move _+>)
-  %-  pre-bake
   =+  qer=(path-to-query %circle pax)
   ?>  ?=($circle -.qer)
-  ?.  (~(has by stories) nom.qer)  ~
-  [%story nom.qer %peer | src.bol qer]~
+  =^  mos  +>.$
+    %-  pre-bake
+    ?.  (~(has by stories) nom.qer)  ~
+    [%story nom.qer %peer | src.bol qer]~
+  :_  +>.$
+  =+  piz=(look qer)
+  ?~  piz  ~&([%query-unavailable pax] mos)
+  ?~  u.piz  ~&([%query-invalid pax] mos)
+  :_  mos
+  [ost.bol %diff %hall-prize u.u.piz]
 ::
 ++  reap
   :>    subscription n/ack
