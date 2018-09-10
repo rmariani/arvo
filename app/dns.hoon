@@ -444,7 +444,7 @@
       /check/(scot %p him)
     =/  url=purl:eyre
       :-  [sec=| por=~ host=[%| `@if`p.tar.u.rel]]
-      [[ext=`~.md path=~] query=~]
+      [[ext=`~.umd path=/static] query=~]
     :: XX state mgmt
     %-  emit
     [%hiss wir [~ ~] %httr %hiss url %get ~ ~]
