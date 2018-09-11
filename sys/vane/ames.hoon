@@ -114,6 +114,7 @@
   ++  zeno                                              ::  imperial keyprint
     |=  zar=@pD
     ^-  @uvH  ^-  @
+    ?:  [testnet=&]  fig:ex:(pit:nu:crub:crypto 512 0w0)
     %+  snag  zar
     ^-  (list @uw)
     :~  0wN.ymbEn.wyNdE.RFNRb.SnEQH   ::    0, ~zod, urbit.org
