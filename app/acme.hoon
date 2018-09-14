@@ -1012,7 +1012,7 @@
 ::
 ++  init
   =/  url
-    'https://acme-staging-v02.api.letsencrypt.org/directory'
+    'https://acme-v02.api.letsencrypt.org/directory'
   =<  (retry:effect /directory +(now.bow))
   %=  this
     bas  (need (de-purl:html url))
