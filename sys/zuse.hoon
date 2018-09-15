@@ -446,7 +446,8 @@
       $%  {$kick p/@da}                                 ::
       ==  ==                                            ::
           $:  %j                                        ::  to %jael
-      $%  [%pubs our=ship who=ship]                     ::  view public keys
+      $%  [%meet our=ship who=ship]                     ::  neighbor
+          [%pubs our=ship who=ship]                     ::  view public keys
           [%vein our=ship]                              ::  view private keys
       ==  ==                                            ::
           $:  $g                                        ::  to %gall
@@ -534,6 +535,7 @@
         {$mead p/lane q/rock}                           ::  accept packet
         {$milk p/sock q/soap r/*}                       ::  e2e pass message
         {$ouzo p/lane q/rock}                           ::  transmit packet
+        {$raki p/sock}                                  ::  neighbor'd
         {$sake p/ship}                                  ::  our private keys
         {$wine p/sock q/tape}                           ::  notify user
     ==                                                  ::

@@ -854,7 +854,7 @@
               =?  +>.$  &(oub !bou)
                 (emit [%wine [our her] " is ok"])
               =?  +>.$  &(neg !eng)
-                (emit [%wine [our her] " is your neighbor"])
+                (emir [%raki our her] [%wine [our her] " is your neighbor"] ~)
               +>.$
             ::
             ++  east
@@ -1284,6 +1284,9 @@
       ::  ~&  [%send now p.bon `@p`(mug (shaf %flap q.bon))]
       :_  fox
       [[gad.fox [%give %send p.bon q.bon]] ~]
+    ::
+        %raki
+      :_  fox  [hen [%pass / %j %meet p.p.bon q.p.bon]]~
     ::
         %sake
       =/  wir=wire
