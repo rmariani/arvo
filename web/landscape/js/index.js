@@ -52113,7 +52113,7 @@ function (_Component) {
           });
           break;
 
-        case "profile":
+        case "header-profile":
           headerData = {
             title: {
               display: this.props.data.owner,
@@ -52245,11 +52245,13 @@ function (_Component) {
         'header-title': true,
         'header-title-mono': headerData.title && headerData.title.style === "mono"
       });
-      headerCarpet = this.buildHeaderCarpet(headerData); // <div onClick={this.reconnectPolling} className={loadingClass}></div>
-
+      headerCarpet = this.buildHeaderCarpet(headerData);
       return react.createElement("div", {
         className: "container header-container"
       }, react.createElement("div", {
+        onClick: this.reconnectPolling,
+        className: loadingClass
+      }), react.createElement("div", {
         className: "row"
       }, react.createElement("div", {
         className: "flex-col-2"
@@ -72549,11 +72551,12 @@ function (_Component) {
       }
 
       commandInputDisabled = this.commandInputDisabled();
-      loadingClass = getLoadingClass(this.props.store.views.transition); // <div className={loadingClass}></div>
-
+      loadingClass = getLoadingClass(this.props.store.views.transition);
       return react.createElement("div", {
         className: "container command-page"
       }, react.createElement("div", {
+        className: loadingClass
+      }), react.createElement("div", {
         className: "row command-row"
       }, react.createElement("div", {
         className: "flex-col-1"
@@ -73452,7 +73455,7 @@ function getSubscribedStations(ship, store) {
       return d.type === "chat";
     }),
     collStations: stationDetailList.filter(function (d) {
-      return ["collection-index", "collection-post"].includes(d.type);
+      return d.type === "collection-index";
     }),
     dmStations: stationDetailList.filter(function (d) {
       return d.type === "dm";
