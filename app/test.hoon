@@ -198,7 +198,6 @@
   ::
     :-  /app/pipe           "wants 'flavor:hall' to exist"
     :-  /app/mark-dashboard   "wants old ford"
-    :-  /app/static         "wants old ford"
     :-  /gen/capitalize     "wants unicode-data/txt"
   ::
     :-  /lib/twitter              "ford can't handle surs from libs"
