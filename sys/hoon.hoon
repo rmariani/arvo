@@ -6409,6 +6409,7 @@
               {$9 p/@ q/nock}                           ::  select arm and fire
               {$10 p/$@(@ {p/@ q/nock}) q/nock}         ::  hint
               {$11 p/nock q/nock}                       ::  grab data from sky
+              {$12 p/{p/@ q/nock} q/nock}               ::  edit
               {$0 p/@}                                  ::  axis select
           ==                                            ::
 +$  note                                                ::  type annotation
