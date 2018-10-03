@@ -370,6 +370,15 @@
           $%  {$crud p/@tas q/(list tank)}              ::
           ==  ==  ==                                    ::
 --  =>
+::  %utilities
+::
+|%
+::  +sort-by-head: sorts alphabetically using the head of each element
+::
+++  sort-by-head
+  |=([a=(pair path *) b=(pair path *)] (aor p.a p.b))
+::
+--  =>
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 ::  section 4cA, filesystem logic
 ::
@@ -1168,6 +1177,15 @@
         ::
         $(p.lem t.p.lem)
       ==
+    ::  sort each section alphabetically for determinism
+    ::
+    =.  nuz  :*
+      (sort del.nuz sort-by-head)
+      (sort ins.nuz sort-by-head)
+      (sort dif.nuz sort-by-head)
+      (sort mut.nuz sort-by-head)
+      (sort ink.nuz sort-by-head)
+    ==
     ::
     =.  +>.$
       %-  emil
@@ -1467,7 +1485,7 @@
     :*  hen  %pass  [%patching (scot %p her) syd ~]  %f
         %build  our  live=%.n  %list
         ^-  (list schematic:ford)
-        %+  turn  ~(tap by hat)
+        %+  turn  (sort ~(tap by hat) sort-by-head)
         |=  {a/path b/lobe}
         ^-  schematic:ford
         :-  [%$ %path-hash !>([a b])]
