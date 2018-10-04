@@ -181,13 +181,13 @@
     ['    ==' ~]
   ==
 ::
-::  +update-udn-front: XX
+::  +update-udon-front: XX
 ::
-++  update-udn-front
-  |=  [fro=(map knot cord) udn=@t]
+++  update-udon-front
+  |=  [fro=(map knot cord) udon=@t]
   ^-  @t
   %-  of-wain:format
-  =/  tum  (trip udn)
+  =/  tum  (trip udon)
   =/  id  (find ";>" tum)
   ?~  id
     %+  weld  (front-to-wain fro)
@@ -277,7 +277,7 @@
       =/  perms  .^([dict:clay dict:clay] %cp sap)
       ?:  (allowed-by src.bol +.perms)
         ?-  -.for.a
-          %udn                 (ta-write pax.a `cage`[-.for.a !>(+.for.a)])
+          %udon                 (ta-write pax.a `cage`[-.for.a !>(+.for.a)])
           %collections-config  (ta-write pax.a `cage`[-.for.a !>(+.for.a)])
         ==
       ta-this
@@ -329,7 +329,7 @@
       ta-this
     ::
         %post
-      =/  perms  .^([dict:clay dict:clay] %cp (weld sap /[dat]/udn))
+      =/  perms  .^([dict:clay dict:clay] %cp (weld sap /[dat]/udon))
       ?.  (allowed-by src.bol +.perms)
         ta-this
       =.  content.a  (crip (weld (trip content.a) "\0a"))
@@ -343,11 +343,11 @@
             [%type type.a]
         ==
       =.  ta-this
-        %+  ta-write  (weld pax.a /[dat]/udn)
-        [%udn !>((update-udn-front front content.a))]
-      ::  restrict permissions on udn file
+        %+  ta-write  (weld pax.a /[dat]/udon)
+        [%udon !>((update-udon-front front content.a))]
+      ::  restrict permissions on udon file
       =.  ta-this
-        %^  ta-set-permissions  (weld pax.a /[dat]/udn)
+        %^  ta-set-permissions  (weld pax.a /[dat]/udon)
         [%black ((set whom:clay) ~)]                   ::  read
         [%white ((set whom:clay) [[& src.bol] ~ ~])]   ::  write
       ::  open permissions on comments
@@ -358,7 +358,7 @@
       ta-this
     ::
         %comment
-      =/  perms  .^([dict:clay dict:clay] %cp (weld sap /[dat]/udn))
+      =/  perms  .^([dict:clay dict:clay] %cp (weld sap /[dat]/udon))
       ?.  (allowed-by src.bol +.perms)
         ta-this
       =.  content.a  (crip (weld (trip content.a) "\0a"))
@@ -370,11 +370,11 @@
             [%type %comments]
         ==
       =.  ta-this
-        %+  ta-write  (weld pax.a /[dat]/udn)
-        [%udn !>((update-udn-front front content.a))]
-      ::  restrict permissions on udn file
+        %+  ta-write  (weld pax.a /[dat]/udon)
+        [%udon !>((update-udon-front front content.a))]
+      ::  restrict permissions on udon file
       =.  ta-this
-        %^  ta-set-permissions  (weld pax.a /[dat]/udn)
+        %^  ta-set-permissions  (weld pax.a /[dat]/udon)
         [%black ((set whom:clay) ~)]                   ::  read
         [%white ((set whom:clay) [[& src.bol] ~ ~])]   ::  write
       ta-this
@@ -560,10 +560,10 @@
     =/  new-con  (slag (need (find ";>" newt)) newt)
     =?  ta-this  !=(old-con new-con)
       =/  contents=@t
-        %+  update-udn-front
+        %+  update-udon-front
         (~(put by meta.new) %last-modified (scot %da now.bol))
         data.new
-      (ta-write (weld pax /udn) %udn !>(contents))
+      (ta-write (weld pax /udon) %udon !>(contents))
     ::
     ta-this
   ::

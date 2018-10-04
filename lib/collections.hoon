@@ -8,13 +8,13 @@
 |%
 +=  collection  [meta=config data=(map nom=knot =item)]
 +=  item
-  $~  [%raw %udn ~ %$]
+  $~  [%raw %udon ~ %$]
   $%  [%collection col=collection]
       [%raw raw=raw-item]
       [%both col=collection raw=raw-item]
   ==
 +=  raw-item
-  $%  [%udn meta=(map knot cord) data=@t]
+  $%  [%udon meta=(map knot cord) data=@t]
   ==
 ::
 +=  config
@@ -50,7 +50,7 @@
   ==
 ::
 +=  form
-  $%  [%udn @t]
+  $%  [%udon @t]
       [%collections-config config]
   ==
 ::

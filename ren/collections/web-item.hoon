@@ -4,9 +4,9 @@
   /^  $@(~ raw-item:collections)
   /|  /;  |=  [a=(map knot cord) b=@t ~]
           ^-  raw-item:collections
-          [%udn a b]
+          [%udon a b]
           /.  /front/
-              /udn/
+              /udon/
           ==
       ::
       /~  ~

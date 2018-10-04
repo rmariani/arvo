@@ -92,7 +92,7 @@
     ;~  pose
       (cold %html (jest '.html'))
       (cold %md (jest '.md'))
-      (cold %udn (jest '.udn'))
+      (cold %udon (jest '.udon'))
       (cold %hoon (jest '.hoon'))
       (cold %js (jest '.js'))
       (cold %css (jest '.css'))
@@ -155,7 +155,7 @@
     ==
   ==
 ::
-::  +find-file: checks for file at %udn, %md, %html, %js, %css, and %hoon extensions
+::  +find-file: checks for file at %udon, %md, %html, %js, %css, and %hoon extensions
 ::              returns a silk to send to ford
 ::
 ++  find-file
@@ -166,7 +166,7 @@
   =/  try-exts=(list @tas)
     :~  %hoon
         %md
-        %udn
+        %udon
         %html
     ==
   ::  if ext is unspecified then try the extensions defined in try-exts
@@ -195,7 +195,7 @@
     [%cast %hymn [%ride [%cnts p=~[[%.y p=1]] q=~] [%core loc]]]
   ?:  ?=(%md normed-ext)
     [%cast %elem [%cast %down [%file loc(s [normed-ext s.loc])]]]
-  ?:  ?=(%udn normed-ext)
+  ?:  ?=(%udon normed-ext)
     [%cast %elem [%file loc(s [normed-ext s.loc])]]
   ?:  ?=(%html normed-ext)
     [%cast %hymn [%file loc(s [normed-ext s.loc])]]
