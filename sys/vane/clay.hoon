@@ -2590,22 +2590,22 @@
     ::  Gets the dome (desk state) at a particular aeon.
     ::
     ::  For past aeons, we don't give an actual ankh in the dome, but the rest
-    ::  of the data is legit.
+    ::  of the data is legit. We also never send the mime cache over the wire.
     ::
     ++  read-v
       |=  {yon/aeon pax/path}
-      ^-  (unit (unit {$dome (hypo dome)}))
+      ^-  (unit (unit {$dome (hypo dome:clay)}))
       ?:  (lth yon let.dom)
         :*  ~  ~  %dome  -:!>(%dome)
-            ank=`[[%ank-in-old-v-not-implemented *ankh] ~ ~]
-            let=yon
-            hit=(molt (skim ~(tap by hit.dom) |=({p/@ud *} (lte p yon))))
-            lab=(molt (skim ~(tap by lab.dom) |=({* p/@ud} (lte p yon))))
-            mim=~
-        ==
+            ^-  dome:clay
+            :*  ank=`[[%ank-in-old-v-not-implemented *ankh] ~ ~]
+                let=yon
+                hit=(molt (skim ~(tap by hit.dom) |=({p/@ud *} (lte p yon))))
+                lab=(molt (skim ~(tap by lab.dom) |=({* p/@ud} (lte p yon))))
+        ==  ==
       ?:  (gth yon let.dom)
         ~
-      ``[%dome -:!>(*dome) dom]
+      ``[%dome -:!>(*dome:clay) [ank let hit lab]:dom]
     ::
     ::  Gets all cases refering to the same revision as the given case.
     ::
@@ -2925,13 +2925,15 @@
         ?~  rot
           (error:he %bad-fetch-ali ~)
         =+  ^=  dum
+            ::  construct an empty mime cache
+            ::
+            :_  mim=*(map path mime)
             %.  q.q.r.u.rot
             %-  hard
             $:  ank=*
                 let=@ud
                 hit=(map @ud tako)
                 lab=(map @tas @ud)
-                mim=(map path mime)
             ==
         ?:  =(0 let.dum)
           (error:he %no-ali-desk ~)
