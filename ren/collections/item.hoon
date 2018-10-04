@@ -4,9 +4,9 @@
 /?  309
 /+  collections
 ::
-::  item: 
+::  item:
 ::
-::    render a collection-item at this path 
+::    render a collection-item at this path
 ::    outputs a +item defined in /lib/collections/hoon
 ::
 ::    recursive renderer, see its counterpart in /ren/collections/hoon
@@ -32,7 +32,7 @@
   ::
   ::  run a pair of renderers
   ::
-  ::  1. get a .umd file together with its frontmatter, or else return ~
+  ::  1. get a .udn file together with its frontmatter, or else return ~
   ::
   ::  2. run the collections renderer, if it fails return ~
   ::     (it fails if .collections-config file does not exist at this path)
@@ -40,9 +40,9 @@
   /.
     ::
     /|  /;  |=  [a=(map knot cord) b=@t ~]
-            [%umd a b]
+            [%udn a b]
             /.  /front/
-                /umd/
+                /udn/
             ==
         /~  ~
     ==

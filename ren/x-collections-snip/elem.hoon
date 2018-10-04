@@ -1,16 +1,14 @@
 ::
 ::  no snip view for collections, only items
 ::
-/=  snipped-umd
+/=  snipped-udn
    /&  snip
    /&  elem
-   /umd/
+   /udn/
 ^-  manx
 ;div
   ;h1
-    ;*  hed.snipped-umd
+    ;*  hed.snipped-udn
   ==
-  ;*  tal.snipped-umd
+  ;*  tal.snipped-udn
 ==
-
-

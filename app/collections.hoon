@@ -8,11 +8,11 @@
 ::  cols:
 ::
 ::    run collections-item renderer on children of /web/collections
-::    combine with a bunted config in a +collection structure defined in 
+::    combine with a bunted config in a +collection structure defined in
 ::    /lib/collections because the top level collection has no config file
 ::
 ::    whenever any of the clay files that compose this renderer change, this app
-::    will recompile and the +prep arm will fire. we then check which files 
+::    will recompile and the +prep arm will fire. we then check which files
 ::    changed and notify the corresponding hall circle of that change
 ::
 /=  cols
@@ -38,8 +38,8 @@
   ==
 --
 ::
-::  state: 
-::    
+::  state:
+::
 ::    stores the collection built by above by :cols so that we can compare old
 ::    and new versions whenever the rendered data changes
 ::
@@ -70,7 +70,7 @@
     (ta-update:ta u.old-col)
   [mow this(state cols)]
 ::
-::  +mack: 
+::  +mack:
 ::
 ::    recieve acknowledgement for permissions changes, print error if it failed
 ::
@@ -181,13 +181,13 @@
     ['    ==' ~]
   ==
 ::
-::  +update-umd-front: XX
+::  +update-udn-front: XX
 ::
-++  update-umd-front
-  |=  [fro=(map knot cord) umd=@t]
+++  update-udn-front
+  |=  [fro=(map knot cord) udn=@t]
   ^-  @t
   %-  of-wain:format
-  =/  tum  (trip umd)
+  =/  tum  (trip udn)
   =/  id  (find ";>" tum)
   ?~  id
     %+  weld  (front-to-wain fro)
@@ -208,8 +208,8 @@
   ::
   :_  this
   :_  ~
-  :*  ost.bol  %poke  
-      /forward-collections-action  
+  :*  ost.bol  %poke
+      /forward-collections-action
       [who.act %collections]
       %collections-action  act
   ==
@@ -233,8 +233,8 @@
   ::
   ++  ta-this  .
   ::
-  ::  +ta-done: 
-  ::    
+  ::  +ta-done:
+  ::
   ::    flop :moves for finalization, since moves are prepended to the list
   ::
   ++  ta-done  [(flop moves) this]
@@ -277,7 +277,7 @@
       =/  perms  .^([dict:clay dict:clay] %cp sap)
       ?:  (allowed-by src.bol +.perms)
         ?-  -.for.a
-          %umd                 (ta-write pax.a `cage`[-.for.a !>(+.for.a)])
+          %udn                 (ta-write pax.a `cage`[-.for.a !>(+.for.a)])
           %collections-config  (ta-write pax.a `cage`[-.for.a !>(+.for.a)])
         ==
       ta-this
@@ -286,7 +286,7 @@
       =/  perms  .^([dict:clay dict:clay] %cp sap)
       ?:  (allowed-by src.bol +.perms)
         (ta-remove pax.a)
-      ta-this 
+      ta-this
     ::
         %perms
       ?:  =(src.bol our.bol)  :: XX admin privileges for other users?
@@ -297,7 +297,7 @@
     ::  XX some of this is redunant
     ::
         %collection
-      =/  perms  
+      =/  perms
         .^([dict:clay dict:clay] %cp (weld sap /[dat]/collections-config))
       ?.  (allowed-by src.bol +.perms)
         ta-this
@@ -313,23 +313,23 @@
             ~
             visible.a
         ==
-      =.  ta-this  
-        %+  ta-write  (weld pax.a /[dat]/collections-config) 
+      =.  ta-this
+        %+  ta-write  (weld pax.a /[dat]/collections-config)
         [%collections-config !>(conf)]
       ::  restrict permissions on config file
-      =.  ta-this  
-        %^  ta-set-permissions  (weld pax.a /[dat]/collections-config) 
+      =.  ta-this
+        %^  ta-set-permissions  (weld pax.a /[dat]/collections-config)
         [%white ((set whom:clay) [[& src.bol] ~ ~])]   ::  read
         [%white ((set whom:clay) [[& src.bol] ~ ~])]   ::  write
       ::  open permissions on collection items
-      =.  ta-this  
-        %^  ta-set-permissions  (weld pax.a /[dat]) 
+      =.  ta-this
+        %^  ta-set-permissions  (weld pax.a /[dat])
         [%black ((set whom:clay) ~)]                   ::  read
         [%black ((set whom:clay) ~)]                   ::  write
       ta-this
     ::
         %post
-      =/  perms  .^([dict:clay dict:clay] %cp (weld sap /[dat]/umd))
+      =/  perms  .^([dict:clay dict:clay] %cp (weld sap /[dat]/udn))
       ?.  (allowed-by src.bol +.perms)
         ta-this
       =.  content.a  (crip (weld (trip content.a) "\0a"))
@@ -342,23 +342,23 @@
             [%last-modified dat]
             [%type type.a]
         ==
-      =.  ta-this  
-        %+  ta-write  (weld pax.a /[dat]/umd) 
-        [%umd !>((update-umd-front front content.a))]
-      ::  restrict permissions on umd file
-      =.  ta-this  
-        %^  ta-set-permissions  (weld pax.a /[dat]/umd) 
+      =.  ta-this
+        %+  ta-write  (weld pax.a /[dat]/udn)
+        [%udn !>((update-udn-front front content.a))]
+      ::  restrict permissions on udn file
+      =.  ta-this
+        %^  ta-set-permissions  (weld pax.a /[dat]/udn)
         [%black ((set whom:clay) ~)]                   ::  read
         [%white ((set whom:clay) [[& src.bol] ~ ~])]   ::  write
       ::  open permissions on comments
-      =.  ta-this  
-        %^  ta-set-permissions  (weld pax.a /[dat]) 
+      =.  ta-this
+        %^  ta-set-permissions  (weld pax.a /[dat])
         [%black ((set whom:clay) ~)]                   ::  read
         [%black ((set whom:clay) ~)]                   ::  write
       ta-this
     ::
         %comment
-      =/  perms  .^([dict:clay dict:clay] %cp (weld sap /[dat]/umd))
+      =/  perms  .^([dict:clay dict:clay] %cp (weld sap /[dat]/udn))
       ?.  (allowed-by src.bol +.perms)
         ta-this
       =.  content.a  (crip (weld (trip content.a) "\0a"))
@@ -369,12 +369,12 @@
             [%last-modified dat]
             [%type %comments]
         ==
-      =.  ta-this  
-        %+  ta-write  (weld pax.a /[dat]/umd) 
-        [%umd !>((update-umd-front front content.a))]
-      ::  restrict permissions on umd file
-      =.  ta-this  
-        %^  ta-set-permissions  (weld pax.a /[dat]/umd) 
+      =.  ta-this
+        %+  ta-write  (weld pax.a /[dat]/udn)
+        [%udn !>((update-udn-front front content.a))]
+      ::  restrict permissions on udn file
+      =.  ta-this
+        %^  ta-set-permissions  (weld pax.a /[dat]/udn)
         [%black ((set whom:clay) ~)]                   ::  read
         [%white ((set whom:clay) [[& src.bol] ~ ~])]   ::  write
       ta-this
@@ -402,7 +402,7 @@
     ::
         %collection
       =.  ta-this
-        %^  ta-hall-json  parent-path  'new collection' 
+        %^  ta-hall-json  parent-path  'new collection'
         (collection-notify pax meta.col.new)
       ::
       =.  ta-this  (ta-hall-create-circle pax description.meta.col.new)
@@ -444,8 +444,8 @@
     ?-    -.old
     ::
         %collection
-      =.  ta-this  
-        %^  ta-hall-json  parent  'deleted collection' 
+      =.  ta-this
+        %^  ta-hall-json  parent  'deleted collection'
         (collection-notify pax meta.col.old)
       =.  ta-this  (ta-flush-permissions (weld pax /collections-config))
       =/  items=(list [nom=@ta =item])  ~(tap by data.col.old)
@@ -470,7 +470,7 @@
     ==
   ::
   ::
-  :: 
+  ::
   ++  ta-update-item
     ::  always make sure removals happen first and insertions happen last
     ::  because removals flush permissions and insertions set them
@@ -536,7 +536,7 @@
     ::
     =?  ta-this  !=(data.old data.new)
       =/  parent-path  (scag (dec (lent pax)) pax)
-      (ta-hall-json parent-path 'edited item' (item-notify pax new)) :: XX fil 
+      (ta-hall-json parent-path 'edited item' (item-notify pax new)) :: XX fil
     ::
     =?  ta-this
       ?&  =('.y' (fall (~(get by meta.new) %comments) '.n'))
@@ -560,10 +560,10 @@
     =/  new-con  (slag (need (find ";>" newt)) newt)
     =?  ta-this  !=(old-con new-con)
       =/  contents=@t
-        %+  update-umd-front
+        %+  update-udn-front
         (~(put by meta.new) %last-modified (scot %da now.bol))
         data.new
-      (ta-write (weld pax /umd) %umd !>(contents))
+      (ta-write (weld pax /udn) %udn !>(contents))
     ::
     ta-this
   ::
@@ -707,7 +707,7 @@
         [our.bol %inbox]
       (path-to-circle (scag (dec (lent pax)) pax))
     %-  ta-hall-actions
-    :~  [%create nom.circ description %journal]  
+    :~  [%create nom.circ description %journal]
         [%source nom.parent & (sy `source:hall`[circ ~] ~)]
     ==
   ::
